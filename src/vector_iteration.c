@@ -2,7 +2,7 @@
 #include <stdlib.h> // for atoi() and exit()
 #include <time.h>   // for clock() and clock_t
 
-#include "mem_slice.h"
+#include "mem_vector.h"
 
 MEM_VECTOR_RANDOM_ACCESS_T(int);
 
