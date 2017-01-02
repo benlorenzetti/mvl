@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+<head>
+<title>GCL Vector</title>
+<style>
+  span {white-space: pre; font-family: monospace; font-weight: bold;}
+  a {text-decoration: none;}
+  pre {padding-left: 20px; padding-right: 20px;
+       margin: 0; margin-bottom: 10px; background-color: HoneyDew;}
+  td {text-align: center;}
+  th {text-align: left;}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <b id="top">top</b>
+| <a href="#template-macro">template macro</a>
+| <a href="#functions">functions</a>
+| <a href="#types">types</a>
+| <a href="#namespace">namespace</a>
+| <a href="#download">download</a>
+</nav>
+<hr/>
+
+<section>
+<h1>Memory Vectors Library</h1>
+<p>
+The idea of memory vectors is to replace pointers used for data manipulation
+with a safer, more flexible alternative system.
+This particular MV library is wholly defined in
+<span><a href="./mv_stdlib.h">mv_stdlib.h</a></span>, which
+includes a standardized structure for memory vectors and a set of
+common algorithms, allocation functions, and macros for working with them.
+It is intended to replace <span>&lt;stdlib.h&gt;</span> at the application
+level and forms the basis of the <a href="#">
+Pi-V data structures library</a>.
+</p>
+<p>The portable implementation
+<span><a href="./mv_stdlib.c">mv_stdlib.c</a></span>
+is compatible with C11 and C99, but will also compile in C89 if your
+system has <span>&lt;stdint.h&gt;</span> or you use a portable equivalent,
+such as <span><a href="./pstdint.h">pstdint.h</a></span> from Paul Hsieh.
+It also requires <span><a href="./pistack.h">pistack.h</a></span> from
+Pi-V. This library and the rest of Pi-V are released under the GLPL v2.1,
+and care has been taken that no macros are over 10 lines long so
+that any proprietary software can use this library without risk of
+legally becoming a derived work.
+</p>
+
+<table>
+<tr>
+  <th>Library Files</th>
+  <th></th>
+  <th>Dependencies</th>
+  <th></th>
+</tr>
+<tr>
+  <td><span><a href="./mv_stdlib.h">mv_stdlib.h</a></span></td>
+  <td></td>
+  <td><span><a href="./pstdint.h">pstdint.h</a></span></td>
+  <td>(New BSD)</td>
+</tr>
+<tr>
+  <td><span><a href="./mv_stdlib.c">mv_stdlib.c</a></span></td>
+  <td></td>
+  <td><span><a href="./pistack.h">pistack.h</a></span></td>
+  <td>(GLPL 2.1)</td>
+</tr>
+</table>
+
+
+<p>
+Lor vector is a container library that implements dynamic arrays, which
+grow and shrink automatically as elements are added or removed.
+Elements are stored sequentially in a contiguous block of memory and
+container operations like <span>push_back</span> and <span>insert</span>
+use a small handle with pointers and size metadata to do their job.
+The library is closely modeled on C++'s <span>std::vector</span> class and can
+be used to write C in an object--oriented style (but we won't force you to).
+</p>
+<p>
+Any data type can be stored after registering its size during initialization.
+For structures with pointers to other memory, deep copying is supported by
+registering copy constructor and destructor functions during initialazation.
+</p>
+<p>
+Accessing elements in a vector is O(1) fast because position can be
+determined by pointer arithmetic.
+Adding or removing elements at the back is usually O(1) fast unless an internal
+call to <span>realloc()</span> must be made. However, insertion and deletion
+are O(n) costly because all elements after the insertion point have to be copy
+shifted rightwards.
+</p>
+<p>
+For large n, memory is allocated exponetially in powers of 1.3 (this can be
+adjusted by redefining <span>LOR_VECTOR_A</span> in <span>lor_vector.h</span>.
+For small n, each reallocation adds space for at least 
+<span>LOR_VECTOR_B</span> new elements.
+</p>
+</section>
+
+<br/>
+<nav>
+  <a href="#">top</a>
+[ <b id="template-macro">template macro</b>
+] <a href="#functions">functions</a>
+| <a href="#types">types</a>
+| <a href="#namespace">namespace</a>
+| <a href="#download">download</a>
+</nav>
+<hr/>
+
+<section>
+<h1>Template macro <span>LOR_VECTOR()</span></h1>
+<p>
+Lor vector works with any data type, but the types' size must be known.
+Consequently, you must register the data type when declaring a lor vector
+container. This is done in the first parameter of the 
+<span>LOR_VECTOR()</span> initialization macro.
+</p>
+<pre>
+
+typedef struct item {
+  ...
+} item;
+
+lor_vector_t price_list = LOR_VECTOR(item, NULL, NULL);
+
+</pre>
+<p>
+For some structures, you may wish to have copy constructor and
+destructor functions associated with them
+(see <a href="#">some advatages of C++ object oriented programming</a>).
+To be registered with a lor vector, the copy constructor function should have a
+pointer parameter for the copy destination, a constant pointer parameter for the
+source, and void return. A destructor function should have one pointer parameter.
+For example,
+</p>
+<pre>
+
+void item_copy_constructor(item* dest, const item* src) {
+  ...
+}
+
+void item_destructor(item*) {
+  ...
+}
+
+lor_vector_t price_list = LOR_VECTOR(item, item_copy_constructor, item_destructor); 
+
+</pre>
+</section>
+
+<br/>
+<nav>
+<a href="#">top</a>
+| <a href="#template-macro">template macro</a>
+[ <b id="functions">functions</b>
+] <a href="#types">types</a>
+| <a href="#namespace">namespace</a>
+| <a href="#download">download</a>
+</nav>
+<hr/>
+
+<section>
+<h1>Library functions</h1>
+</section>
+
+<br/>
+<nav>
+<a href="#">top</a>
+| <a href="#template-macro">template macro</a>
+| <a href="#functions">functions</a>
+[ <b id="types">types</b>
+] <a href="#namespace">namespace</a>
+| <a href="#download">download</a>
+</nav>
+<hr/>
+
+<section>
+<h1>Library types</h1>
+</section>
+
+<br/>
+<nav>
+<a href="#">top</a>
+| <a href="#template-macro">template macro</a>
+| <a href="#functions">functions</a>
+| <a href="#types">types</a>
+[ <b id="namespace">namespace</b>
+] <a href="#download">download</a>
+</nav>
+<hr/>
+
+<section>
+<h1>Library namespace</h1>
+<p>
+  All exterally visible functions and types in the library are prefixed with
+  <span>lor_vector</span>. Macros and directives are prefixed with 
+  <span>LOR_VECTOR</span>. If this make your code too verbose, the optional
+  <span>LOR_VECTOR_NAMESPACE</span>
+  can be defined.
+</p>
+<pre style="float:left;">
+
+#include &lt;stdio.h&gt;
+#include "lor_vector.h"
+
+   
+int main() {
+  lor_vector_t primes = LOR_VECTOR(int, NULL, NULL);
+  lor_vector.push_back(&amp;primes, 2);
+  lor_vector.push_back(&amp;primes, 3);
+  printf("vector size = %d\n", lor_vector.size(&amp;primes));
+}
+
+</pre>
+<pre style="float:left;">
+
+#include &lt;stdio.h&gt;
+#define LOR_VECTOR_NAMESPACE <b>vec</b>
+#include "lor_vector.h"
+
+int main() {
+<b>vec</b>_t primes = LOR_VECTOR(int, NULL, NULL);
+<b>vec</b>.push_back(&amp;primes, 2);
+<b>vec</b>.push_back(&amp;primes, 3);
+printf("vector size = %d\n", <b>vec</b>.size(&amp;primes));
+
+}
+</pre>
+<div style="clear:left"></div>
+</section>
+
+<br/>
+<nav>
+<a href="#">top</a>
+| <a href="#template-macro">template macro</a>
+| <a href="#functions">functions</a>
+| <a href="#types">types</a>
+| <a href="#namespace">namespace</a>
+[ <b id="download">download</b> ]
+</nav>
+<hr/>
+
+<section>
+<h1>Download</h1>
+<p>
+The header file <span>city_class.h</span>
+shows how you can define a "class" in C. Specifically the copy constructor
+function shows the prototype needed for registering a copy constructor with a
+generic container.
+The city structure has a pointer to another place in memory that holds the
+city name; a so called "deep pointer" because naively copying just the struct
+is not enough to create a wholly new object.
+</p>
+<p>
+The file <span>demo_vector.c</span> shows how such a user--defined class can
+be used with the generic container. 
+<p/>
+<code class="c-listing"><a href="../city_class.h">city_class.h</a></code>
+<code class="c-listing"><a href="../demo_vector.c">demo_vector.c</a></code>
+</section>
+
+
+
+
+</body>
+</html>
