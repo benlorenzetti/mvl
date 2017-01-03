@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+<head>
+<title>Pi-V Library</title>
+<style>
+  span {white-space: pre; font-family: monospace; font-weight: bold;}
+  a {text-decoration: none;}
+  td {text-align: left; vertical-align: top; padding: 5px;}
+  th {text-align: right; vertical-align: top; padding: 5px;}
+  li {padding: 5px;}
+  pre {padding: 3px; padding-left: 20px; padding-right: 20px;
+       margin: 5px; background-color: HoneyDew;}
+</style>
+</head>
+
+<body>
+
+<section id="abstract">
+<h1>Pi-V Library</h1>
+<p>
+The Pi-V library provides 5 sequential data structures with automatic
+memory management, along with common searching and sorting algorithms,
+all written in fairly portable C.
+Short macros (10 lines or less) allow any sized data type to be stored
+and pointers are generalized as "memory vectors" that allow common
+algorithms to be applied to different pairings of data structure and
+data type.
+</p>
+<p>
+The 5 containers are each defined and implemented in single files,
+<span><a href="./pique.h">pique.h</a></span>,
+<span><a href="./pitwo.h">pitwo.h</a></span>,
+<span><a href="./piflist.h">piflist.h</a></span>,
+<span><a href="./pixlist.h">pixlist.h</a></span>, and
+<span><a href="./pistack.h">pistack.h</a></span>, while
+algorithms and memory vectors are defined in their own library
+with two files <span><a href="./pi_stdlib.h">pi_stdlib.h</a></span>
+and <span><a href="./pi_stdlib.c">pi_stdlib.c</a></span>.
+All are released under the GLPL version 2.1.
+</p>
+<table width="700px">
+<tr>
+  <th><a href="pique.html">pique</a></th>
+  <td>dynamically sized arrays with constant time
+      <span>pop_front()</span>, <span>pop_back()</span>, and
+      amortized constant time <span>push_back()</span>.
+</tr>
+<tr>
+  <th><a href="pitwo.html">pitwo</a></th>
+  <td>fixed size circular buffers with amortized constant
+      <span>push_front()</span>.</td> 
+</tr>
+<tr>
+  <th><a href="piflist.html">piflist</a></th>
+  <td>forward lists with constant time <span>pop_front()</span>,
+      <span>push_front()</span>, and <span>push_back()</span></td>
+</tr>
+<tr>
+  <th><a href="pixlist.html">pixlist</a></th>
+  <td></td>
+</tr>
+<tr>
+  <th><a href="pistack.html">pistack</a></th>
+  <td>a blocked array structure with constant time <span>push</span>
+      and <span>pop</span> operations and log(N) <span>insert()</span>/
+      <span>delete()</span>.</td>
+</tr>
+<tr>
+  <th><a href="pi_stdlib.html">pi_stdlib</a></th>
+  <td><span>pi_bsearch()</span>, <span>pi_qsort()</span>,
+      <span>pi_alloc()</span>, <span>DO()...FOR_EACH()</span>, etc.</td>
+</tr>
+</table>
+</section>
+
+<br/>
+<nav>
+  <b>abstract</b>
+| <a href="#compile-and-test">compile and test</a>
+| <a href="#impetus">impetus</a>
+| <a href="#limitations">limitations</a>
+</nav>
+
+<section id="compile-and-test">
+<hr/>
+<h1>Compile and Test</h1>
+<p>compile object file instructions. 3 files. gcc command.
+instructions for C89 without stdint.h. finally test program.
+</p>
+<p>To compile a program using Pi-V you need pi_stdlib.h,
+pique.h, pi_stdlib.c (or object code), and any of the other
+4 header files if you need that particular data structure.
+In your program it is sufficient to include only the header file for
+the data structure you are using. When invoking the compiler,
+don't forget to compile and/or link against pi_stdlib.c.
+</p>
+<p>
+Copy the program below and place it in a directory with
+<a href="../pi_stdlib.h">pi_stdlib.h</a>,
+<a href="../pique.h">pique.h</a>, and
+<a href="../pi_stdlib.c">pi_stdlib.c</a>. Then compile with
+$<span>gcc test_program.c pi_stdlib.c</span> and run with
+$<span>./a.out</span> on Linux.
+
+<pre style="float:left;">
+
+#include &lt;stdio.h&gt;
+#include "lor_vector.h"
+
+   
+int main() {
+  lor_vector_t primes = LOR_VECTOR(int, NULL, NULL);
+  lor_vector.push_back(&amp;primes, 2);
+  lor_vector.push_back(&amp;primes, 3);
+  printf("vector size = %d\n", lor_vector.size(&amp;primes));
+}
+
+</pre>
+<pre style="float:left;">
+
+#include &lt;stdio.h&gt;
+#define LOR_VECTOR_NAMESPACE <b>vec</b>
+#include "lor_vector.h"
+
+int main() {
+<b>vec</b>_t primes = LOR_VECTOR(int, NULL, NULL);
+<b>vec</b>.push_back(&amp;primes, 2);
+<b>vec</b>.push_back(&amp;primes, 3);
+printf("vector size = %d\n", <b>vec</b>.size(&amp;primes));
+
+}
+</pre>
+<div style="clear:left"></div>
+
+
+<p>
+Lor vector works with any data type, but the types' size must be known.
+Consequently, you must register the data type when declaring a lor vector
+container. This is done in the first parameter of the 
+<span>LOR_VECTOR()</span> initialization macro.
+</p>
+<pre>
+
+typedef struct item {
+  ...
+} item;
+
+lor_vector_t price_list = LOR_VECTOR(item, NULL, NULL);
+
+</pre>
+<p>
+For some structures, you may wish to have copy constructor and
+destructor functions associated with them
+(see <a href="#">some advatages of C++ object oriented programming</a>).
+To be registered with a lor vector, the copy constructor function should have a
+pointer parameter for the copy destination, a constant pointer parameter for the
+source, and void return. A destructor function should have one pointer parameter.
+For example,
+</p>
+<pre>
+
+void item_copy_constructor(item* dest, const item* src) {
+  ...
+}
+
+void item_destructor(item*) {
+  ...
+}
+
+lor_vector_t price_list = LOR_VECTOR(item, item_copy_constructor, item_destructor); 
+
+</pre>
+</section>
+
+<nav>
+  <a href="#abstract">abstract</a>
+[ <b id="compile-and-test">compile and test</b>
+] <a href="#impetus">impetus</a>
+| <a href="#limitations">limitations</a>
+</nav>
+
+<section id="impetus">
+<hr/>
+<h1>Impetus for Pi-V</h1>
+<p></p>
+</section>
+
+<br/>
+<nav>
+<a href="#abstract">abstract</a>
+| <a href="#compile-and-test">compile and test</a>
+[ <b>impetus</b>
+] <a href="#limitations">limitations</a>
+</nav>
+
+<section id="limitations">
+<hr/>
+<h1>Limitations in Pi-V</h1>
+<ol>
+  <li>Pi-V might be too reliant on macros, which often makes debugging
+      difficult and produces cryptic compiler errors. This can be partially
+      attributed to C not offering templates and iterators like C++,
+      and partially to me using text substitution to paper over deficiencies
+      in my design for polymorphism between vector types.
+      (i.e. be able to use INC() on all vector types, etc.)</li>
+  <li>Anytime dynamic memory allocation is done, there is a chance for
+      failure. C++, D, and other languages have mechanisms for handling
+      this but Pi-V ... sort of encourages ignoring the problem. One thing
+      you can do is use the ternary operator for error checking pushes:
+<pre>
+(ptr = pique.push_back(&prime_numbers)) ? (*ptr = 17) : (printf("error"));
+</pre>
+      maybe a macro? ironically.
+  </li>
+  <li>The pitwo data structure is not able to use its full capacity in my
+      implementation, because having zero elements is indistiguishable
+      from having 2^n elements.
+  </li>
+  <li>The effectiveness of pi_malloc...</li>
+</ol>
+
+<p>Listing specific limitations is easy, but perhaps the greatest limitation
+is the author's lurking opinions.
+It is possible this library is more about me being smitten with C but
+lusting after features it doesn't have, more than about being useful to anyone.
+I think indexing should be from 1 to N and pointers should point from the right.
+Further, if you are having memory allocation errors,
+then might as well give up with an out of bounds error instead of
+trying to make a complicated runtime to deal with it.
+Finally, I consider item 3 on the list to be intentional for when
+I eventually write my grandoise and narcissistic string library.
+Its not a mistake, its intentional. Promise.
+</p>
+</section>
+
+<nav>
+<a href="#abstract">abstract</a>
+| <a href="#compile-and-test">compile and test</a>
+| <a href="#impetus">impetus</a>
+[ <b>limitations</b> ]
+</nav>
+<hr/>
+
+</body>
+</html>

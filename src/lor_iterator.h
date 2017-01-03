@@ -27,7 +27,7 @@
  *
  */
 
-#include "lor_unique_compiler_string.h"
+#include "lor_unique_string.h"
 /*  needed for generating unique casting structs for list iteratation functions
  *  that won't confilict with (probably redundant) structs defined by other
  *  Lor data structure macros.
