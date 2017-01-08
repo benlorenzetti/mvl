@@ -1,0 +1,42 @@
+Intro
+
+Pi-V is a data structures and algorithms library inspired by the 
+container--iterators--algorithms design pattern
+from C++'s Standard Template Library; in fact <em>the first goal</em>
+of Pi-V is to replicate that functionality in C.
+
+The C++ STL relies on a bunch of C++ language features, including classes,
+objects, encapsulation, inheritance, polymorphism, templates, exceptions,
+fuction overloading, and maybe some more to achieve generic programming
+and code reuse. The thing is, most of these are just ideas that arise
+naturally over the course programming on modern architectures.
+
+So if all the object-oriented concepts listed above sound like
+buzzwords to you, or maybe your understanding of them is hazy or
+forgotten, then we are on the same page.
+
+<em>The second goal</em> of Pi-V is to see if these concepts must
+be baked into the language as features; or if these ideas
+exist and can be built easily from older features closer to the machine:
+arrays, structs, unions, pointers, type casts, function
+pointers, text-substitution prior to compilation, library linking post
+compilation, a function call interface, and common operatingsystem calls.
+
+The only things we can't get in Pi-V compared to the C++ STL are good
+compiler warnings for type errors because text-substitution just isn't
+a fully spec'ed template system, operator and function overloading
+(which is a straight up language feature), easier ability for the C++
+compiler to identify certain possible optimizations, and the
+"ability" to handle memory allocation errors obfuscatedly in a
+single line of user code.
+
+Luckily some of the added-value from these lacking features can still be
+captured elsewhere with modern C compilers and good library design.
+Pi-V attempts to be that good design.
+
+Description of each Data Structure, 1 by 1
+
+Vector Space Framework with english definitions, pseudo structs, and pictures.
+(vectors, pieces, slices)
+
+Iterators...with example. Then show macros.

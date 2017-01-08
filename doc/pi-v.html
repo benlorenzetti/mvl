@@ -19,12 +19,35 @@
 <h1>Pi-V Library</h1>
 <p>
 The Pi-V library provides 5 sequential data structures with automatic
-memory management, along with common searching and sorting algorithms,
+memory management, plus common search/sort algorithms,
 all written in fairly portable C.
-Short macros (10 lines or less) allow any sized data type to be stored
-and pointers are generalized as "memory vectors" that allow common
-algorithms to be applied to different pairings of data structure and
-data type.
+Short text-substitution macros are used like templates in C++ to let
+any data type be stored and pointers are generalized as "memory vectors"
+to let algorithms be applicable to different pairings of
+data structure &#x2a2f; data type.</p>
+
+<p>The library is licensed under the GLPL version 2.1.
+It is compatible with C99 and C11, and even ANSI C89 if your system
+has <span>&lt;stdint.h&gt;</span> or you include this portable
+equivalent, <a href="../pstdint.h">pstdint.h</a> written by Paul Hsieh.
+</p>
+<p>Containers with automatic memory management are called <em>pies</em>
+in Pi-V. There are five varieties:
+<a href="./piarray.html">piarray</a>,
+<a href="./pitwo.html">pitwo</a>,
+<a href="./pique.html">pique</a>,
+<a href="./pifwd.html">pifwd</a>, and
+<a href="./pixor.html">pixor</a> pies.
+</p>
+<img href="./img/contiguous-structures.png" alt="[contiguous structures]"/>
+<img href="./img/list-structures.png" alt="[list structures]"/>
+<img href="./img/blocked-structures.png" alt="[blocked-structures]"/>
+<p>
+Common algorithms and a sort-of framework for easily using the "pie"
+containers is declared in <a href="./piv_stdlib.html">pi_stdlib</a>.
+This includes defining the "memory vector" interfaces, a special memory
+allocation function and implementations of
+merge sort, quick sort, radix sort, binary search, etc.
 </p>
 <p>
 The 5 containers are each defined and implemented in single files,
@@ -76,10 +99,25 @@ All are released under the GLPL version 2.1.
 <br/>
 <nav>
   <b>abstract</b>
-| <a href="#compile-and-test">compile and test</a>
 | <a href="#impetus">impetus</a>
+| <a href="#download-compile-test">download compile test</a>
+| <a href="#documentation">documentation</a>
 | <a href="#limitations">limitations</a>
 </nav>
+
+<nav>
+  <a href="#abstract">abstract</a>
+[ <b id="compile-and-test">compile and test</b>
+] <a href="#impetus">impetus</a>
+| <a href="#limitations">limitations</a>
+</nav>
+
+<section id="impetus">
+<hr/>
+<h1>Impetus for Pi-V</h1>
+<p></p>
+</section>
+<br />
 
 <section id="compile-and-test">
 <hr/>
@@ -173,20 +211,6 @@ lor_vector_t price_list = LOR_VECTOR(item, item_copy_constructor, item_destructo
 </section>
 
 <nav>
-  <a href="#abstract">abstract</a>
-[ <b id="compile-and-test">compile and test</b>
-] <a href="#impetus">impetus</a>
-| <a href="#limitations">limitations</a>
-</nav>
-
-<section id="impetus">
-<hr/>
-<h1>Impetus for Pi-V</h1>
-<p></p>
-</section>
-
-<br/>
-<nav>
 <a href="#abstract">abstract</a>
 | <a href="#compile-and-test">compile and test</a>
 [ <b>impetus</b>
@@ -240,6 +264,8 @@ Its not a mistake, its intentional. Promise.
 [ <b>limitations</b> ]
 </nav>
 <hr/>
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Pi-V Library for C</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Ben Lorenzetti</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 </body>
 </html>
