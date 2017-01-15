@@ -17,7 +17,7 @@
 
 <nav>
   <b>abstract</b>
-| <a href="#motivation">motivation</a>
+| <a href="#motivation"></a>
 | <a href="#documentation">documentation</a>
 | <a href="#download-compile-test">download &amp; compile</a>
 | <a href="#namespace">namespace</a>
@@ -28,27 +28,37 @@
 <section id="abstract">
 <h1>Pi-V Library</h1>
 <p>
-The Pi-V library provides 5 sequential data structures with automatic
+The Pi-V library provides sequential data structures with automatic
 memory management, plus common search/sort algorithms,
 all written in fairly portable C.</p>
 
-<p>
-Pointers are generalized as "memory vectors", iterator
-functions describe vector arithmetic based on data structure,
-precompiler text-substitution macros are used like C++ templates
-for storing any data type, and a framework of standard
-interface function signatures plus a notion of vector ranges
-allow generic algorithms to be written and applied to
-different pairings of data structure &#x2a2f; data type.</p>
-
-<p>Containers with automatic memory management are called <em>pies</em>
-in Pi-V. There are five varieties:
-<a href="./piarray.html">piarray</a>,
-<a href="./pitwo.html">pitwo</a>,
-<a href="./pique.html">pique</a>,
-<a href="./pifwd.html">pifwd</a>, and
-<a href="./pixor.html">pixor</a> pies.
+<p>Pointers are generalized as "memory vectors", iteration
+functions describe vector arithmetic depending on data structure,
+macros are used like C++ templates for storing any data type,
+and a framework of standardized function signatures plus a notion of
+vector ranges allow generic algorithms to be written and applied to
+different pairings of data structure &#x2a2f; data type.
 </p>
+<p>Containers with automatic memory management are called <em>pies</em>
+in Pi-V and there are five families based on underlying data structure.
+</p>
+<table>
+<tr>
+  <td>Array-like<br />Containers</td>
+  <td>Blocked Array<br />Containers</td>
+  <td>Linked List<br /> Containers</td>
+  <td>Ordered Pair<br /> Containers</td>
+  <td>Hash Mapped<br /> Containers</td>
+</tr>
+<tr>
+  <td>pi_garray</td><td>pi_deque</td><td>pi_fwdlist</td><td>pi_map</td><td>pi_hashmap</td>
+</tr><tr>
+  <td>pi_two</td><td>pi_stack</td><td>pi_revlist</td><td>pi_multimap</td><td></td>
+</tr><tr>
+  <td>pi_matrix</td><td></td><td>pi_xorlist</td><td></td><td></td>
+</tr>
+</table>
+
 <img src="./figures/contiguous-structures.jpeg" alt="[contiguous structures]" width="350px"/>
 <img src="./figures/blocked-structures.jpeg" alt="[block structures]" width="325px"/>
 <img src="./figures/list-structures.jpeg" alt="[list structures]" width="300px"/>
@@ -67,6 +77,7 @@ iterators and range, and implementations of
 It is compatible with C99 and C11, and even ANSI C89 if your system
 has <span>&lt;stdint.h&gt;</span> or you include this portable
 equivalent, <a href="../pstdint.h">pstdint.h</a> written by Paul Hsieh.
+Little Endian.
 </p>
 
 <br/>
