@@ -50,15 +50,35 @@ typedef union {
 } piv_slice;
 
 typedef struct piv_table_s {
-  uintptr_t (*const add) (uintptr_t, uintptr_t); 
+  uintptr_t (*const add) (uintptr_t, uintptr_t);
+  piv_piece (*const inc) (piv_state*, uintptr_t);
   void (*const cpy) (piv_vec, piv_piece); // (left vec dest, rvec src)
   uintptr_t (*const sbrk) (piv_state*, uintptr_t);
 } piv_table;
 
-uintptr_t piv_realloc(uintptr_t ptr, size_t size) {
-  void* new = realloc((void*)ptr, size);
+uintptr_t piv_malloc(size_t size) {
+  void* new = malloc(size);
   return (new == NULL) ? 0 : (uintptr_t) new;
 }
+
+void piv_free(uintptr_t ptr) {
+  free((void*) ptr);
+}
+
+#define PIV_SLICE_XT(type) \
+union { \
+  piv_slice_s slice; \
+  piv_state state; \
+  piv_vec rvec; \
+  piv_piece piece; \
+  uintptr_t end; \
+  type *ptr; \
+}
+
+
+
+#define PIV_EMPTY(pie) \
+(pie.slice.piece.end == pie.slice.piece.begin)
 
 #define PIV_SIZE(pie) ( \
 (pie.slice.v_table->add(pie.piece.begin, pie.end)) \
