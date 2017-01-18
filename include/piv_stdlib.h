@@ -1,15 +1,40 @@
 #ifndef PIV_STDLIB_H
 #define PIV_STDLIB_H
 
+/* 
+ * Copyright (C) 2017 Ben Lorenzetti
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the copyright holder nor the names of its
+ *    contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+
 #include "pstdint.h"
 #include <stdlib.h>
 
 struct piv_table_s;
-
-typedef union {
-  char* ptr;
-  uintptr_t uint;
-} piv_ptr;
 
 typedef struct {
   uintptr_t end;
@@ -17,43 +42,47 @@ typedef struct {
 } piv_piece;
 
 typedef struct {
+  uintptr_t rend;
+  piv_piece lvec;
+} piv_3state;
+
+typedef union {
+  piv_piece lvec;
+  uintptr_t rend;
+} piv_2state;
+
+typedef struct {
   uintptr_t end;
   uintptr_t begin;
+  const struct piv_table_s* v_table;
 } piv_vec;
 
 typedef struct {
   uintptr_t end;
-  piv_vec lvec;
-} piv_state_s;
-
-typedef union {
-  piv_state_s state;
-  piv_vec rvec;
-  piv_piece piece;
-  uintptr_t end;
-  char* ptr;
-} piv_state;
-
-typedef struct {
-  uintptr_t end;
-  piv_vec begin;
+  uintptr_t begin;
+  uintptr_t root;
   const struct piv_table_s* v_table;
-} piv_slice_s;
+} piv_slice;
 
 typedef union {
-  piv_slice_s slice;
-  piv_state state;
-  piv_vec rvec;
-  piv_piece piece;
-  uintptr_t end;
-  char* ptr;
-} piv_slice;
+  piv_vec slice;
+  piv_piece rvec;
+  piv_2state state;
+  char *end;
+} piv_vector;
+
+typedef union {
+  piv_slice slice;
+  piv_3state state;
+  piv_piece rvec;
+  char* end;
+} piv_pie;
 
 typedef struct piv_table_s {
   uintptr_t (*const add) (uintptr_t, uintptr_t);
-  piv_piece (*const inc) (piv_state*, uintptr_t);
-  void (*const cpy) (piv_vec, piv_piece); // (left vec dest, rvec src)
-  uintptr_t (*const sbrk) (piv_state*, uintptr_t);
+  piv_piece (*const inc) (piv_piece*, const size_t);
+  void (*const cpy) (piv_piece, piv_piece); // (left vec dest, rvec src)
+  uintptr_t (*const sbrk) (piv_3state*, size_t);
 } piv_table;
 
 uintptr_t piv_malloc(size_t size) {
@@ -67,25 +96,38 @@ void piv_free(uintptr_t ptr) {
 
 #define PIV_SLICE_XT(type) \
 union { \
-  piv_slice_s slice; \
-  piv_state state; \
-  piv_vec rvec; \
-  piv_piece piece; \
-  uintptr_t end; \
-  type *ptr; \
+  piv_slice slice; \
+  piv_3state state; \
+  piv_piece rvec; \
+  type *end; \
 }
 
+#define PIV_VECTOR_XT(type) \
+union { \
+  piv_vec slice; \
+  piv_2state state; \
+  piv_piece rvec; \
+  type *end; \
+}
 
+#define PIV_SLICE(pie) \
+{pie.state.rend, pie.state.lvec, pie.slice.vec.v_table};
+
+#define PIV_LVEC(pie) \
+{pie.state.lvec.end, pie.rvec.end, pie.slice.v_table};
+
+#define PIV_INC(pie) \
+(pie.slice.v_table->inc(&pie.state.lvec, sizeof(*pie.end)))
 
 #define PIV_EMPTY(pie) \
-(pie.slice.piece.end == pie.slice.piece.begin)
+(pie.rvec.end == pie.rvec.begin)
 
 #define PIV_SIZE(pie) ( \
-(pie.slice.v_table->add(pie.piece.begin, pie.end)) \
-/ sizeof(*pie.ptr))
+(pie.slice.v_table->add(pie.rvec.begin, pie.rvec.end)) \
+/ sizeof(*pie.end))
 
 #define PIV_CAPACITY(pie) ( \
-(pie.slice.v_table->add(pie.state.state.lvec.end, \
-pie.state.state.lvec.begin)) / sizeof(*pie.ptr))
+(pie.slice.v_table->add(pie.state.lvec.end, \
+pie.state.lvec.begin)) / sizeof(*pie.end))
 
 #endif
