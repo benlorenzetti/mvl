@@ -42,23 +42,23 @@
 #define PIQUE_DEFINE_XT(type) \
 union PIQUE_CONCAT(type, pique_slice) \
 { \
-  piv_slice slice; \
+  struct piv_slice structure; \
   piv_3state state; \
   piv_piece rvec; \
   type *end; \
 }; \
 struct PIQUE_CONCAT(type, pique_pie) \
 { \
-  union PIQUE_CONCAT(type, pique_slice) pie; \
+  union PIQUE_CONCAT(type, pique_slice) slice; \
   int (*const push) (struct PIQUE_CONCAT(type, pique_pie) *, type); \
 }; \
 int PIQUE_CONCAT(type, pique_push) ( \
   struct PIQUE_CONCAT(type, pique_pie) *pie, \
   type val) \
 { \
-  if(pique.sbrk(&(pie->pie.state), sizeof(type)) < sizeof(type)) \
+  if(pique.sbrk(&(pie->slice.state), sizeof(type)) < sizeof(type)) \
     return 0; \
-  *pie->pie.end = val; \
+  *pie->slice.end = val; \
   return 1; \
 }
 

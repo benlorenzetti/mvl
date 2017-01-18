@@ -51,32 +51,32 @@ typedef union {
   uintptr_t rend;
 } piv_2state;
 
-typedef struct {
+struct piv_vector {
   uintptr_t end;
   uintptr_t begin;
   const struct piv_table_s* v_table;
-} piv_vec;
+};
 
-typedef struct {
+struct piv_slice {
   uintptr_t end;
   uintptr_t begin;
   uintptr_t root;
   const struct piv_table_s* v_table;
-} piv_slice;
+};
 
 typedef union {
-  piv_vec slice;
+  struct piv_vector structure;
   piv_piece rvec;
   piv_2state state;
   char *end;
 } piv_vector;
 
 typedef union {
-  piv_slice slice;
+  struct piv_slice structure;
   piv_3state state;
   piv_piece rvec;
   char* end;
-} piv_pie;
+} piv_slice;
 
 typedef struct piv_table_s {
   uintptr_t (*const add) (uintptr_t, uintptr_t);
@@ -96,7 +96,7 @@ void piv_free(uintptr_t ptr) {
 
 #define PIV_SLICE_XT(type) \
 union { \
-  piv_slice slice; \
+  struct piv_slice structure; \
   piv_3state state; \
   piv_piece rvec; \
   type *end; \
@@ -104,30 +104,30 @@ union { \
 
 #define PIV_VECTOR_XT(type) \
 union { \
-  piv_vec slice; \
+  struct piv_vector structure; \
   piv_2state state; \
   piv_piece rvec; \
   type *end; \
 }
 
-#define PIV_SLICE(pie) \
-{pie.state.rend, pie.state.lvec, pie.slice.vec.v_table};
+#define PIV_SLICE(slice) \
+{slice.structure.rend, slice.state.lvec, slice.structure.vec.v_table};
 
-#define PIV_LVEC(pie) \
-{pie.state.lvec.end, pie.rvec.end, pie.slice.v_table};
+#define PIV_LVEC(slice) \
+{slice.state.lvec.end, slice.rvec.end, slice.structure.v_table};
 
-#define PIV_INC(pie) \
-(pie.slice.v_table->inc(&pie.state.lvec, sizeof(*pie.end)))
+#define PIV_INC(slice) \
+(slice.structure.v_table->inc(&slice.state.lvec, sizeof(*slice.end)))
 
-#define PIV_EMPTY(pie) \
-(pie.rvec.end == pie.rvec.begin)
+#define PIV_EMPTY(slice) \
+(slice.rvec.end == slice.rvec.begin)
 
-#define PIV_SIZE(pie) ( \
-(pie.slice.v_table->add(pie.rvec.begin, pie.rvec.end)) \
-/ sizeof(*pie.end))
+#define PIV_SIZE(slice) ( \
+(slice.structure.v_table->add(slice.rvec.begin, slice.rvec.end)) \
+/ sizeof(*slice.end))
 
-#define PIV_CAPACITY(pie) ( \
-(pie.slice.v_table->add(pie.state.lvec.end, \
-pie.state.lvec.begin)) / sizeof(*pie.end))
+#define PIV_CAPACITY(slice) ( \
+(slice.structure.v_table->add(slice.state.lvec.end, \
+slice.state.lvec.begin)) / sizeof(*slice.end))
 
 #endif
