@@ -35,7 +35,7 @@
 #include "piv_stdlib.h"
 
 
-#define PIQUE_GEOMETRIC_BASE 3/2
+#define PIQUE_RESIZE_FACTOR 3/2
 
 #define PIQUE_CONCAT(x, y) x ## y
 
@@ -107,18 +107,21 @@ piv_piece pique_inc(piv_piece* lvec, const size_t req_size) {
 void pique_cpy(piv_piece dest, piv_piece src) {
   // Test for overlap (alias) of source and destination
   size_t data_size = pique_add(src.begin, src.end);
-  uintptr_t new_end = pique_add(dest.begin, data_size);
-  if(dest.begin > src.begin || new_end < src.end)
-    memcpy((char*)dest.begin, (char*)src.end, data_size);
+  piv_piece rvec;
+  rvec.begin = dest.end;
+  rvec.end = pique_add(rvec.begin, data_size);
+  if(rvec.end > src.begin || rvec.begin < src.end)
+    memcpy((char*) rvec.end, (char*) src.end, data_size);
   else
-    memmove((char*)dest.begin, (char*)src.end, data_size);
+    memmove((char*) rvec.end, (char*) src.end, data_size);
 }
 
 uintptr_t pique_sbrk(piv_3state* state, size_t size) {
-  size_t cap = pique_add(state->lvec.end, state->lvec.begin);
-  size_t old_size = pique_add(state->lvec.end, state->rend);
-  if(size + old_size > cap) {
-    size_t new_size = (old_size + size) * PIQUE_GEOMETRIC_BASE;
+  size_t capacity, old_size, new_size;
+  capacity = pique_add(state->lvec.end, state->lvec.begin);
+  old_size = (pique_add(state->lvec.end, state->rend));
+  if(size + old_size > capacity) {
+    new_size = ((old_size + size) * PIQUE_RESIZE_FACTOR) & ~(sizeof(int)-1);
     uintptr_t new = piv_malloc(new_size);
     piv_piece new_alloc, old_piece;
     old_piece.end = state->rend;
