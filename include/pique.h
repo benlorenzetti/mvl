@@ -37,23 +37,23 @@
 
 #define PIQUE_RESIZE_FACTOR 3/2
 
-#define PIQUE_CONCAT(x, y) x ## y
+#define PIQUE_CONCAT(x, y, z) x ## y ## z
 
 #define PIQUE_DEFINE_XT(type) \
-union PIQUE_CONCAT(type, pique_slice) \
+union PIQUE_CONCAT(pique_, type, _slice) \
 { \
   struct piv_slice structure; \
   piv_3state state; \
   piv_piece rvec; \
   type *end; \
 }; \
-struct PIQUE_CONCAT(type, pique_pie) \
+struct PIQUE_CONCAT(pique_, type, _pie) \
 { \
-  union PIQUE_CONCAT(type, pique_slice) slice; \
-  int (*const push) (struct PIQUE_CONCAT(type, pique_pie) *, type); \
+  union PIQUE_CONCAT(pique_, type, _slice) slice; \
+  int (*const push) (struct PIQUE_CONCAT(pique_, type, _pie) *, type); \
 }; \
-int PIQUE_CONCAT(type, pique_push) ( \
-  struct PIQUE_CONCAT(type, pique_pie) *pie, \
+int PIQUE_CONCAT(pique_, type, _push) ( \
+  struct PIQUE_CONCAT(pique_, type, _pie) *pie, \
   type val) \
 { \
   if(pique.sbrk(&(pie->slice.state), sizeof(type)) < sizeof(type)) \
@@ -62,11 +62,11 @@ int PIQUE_CONCAT(type, pique_push) ( \
   return 1; \
 }
 
-#define PIQUE_XT(type) struct PIQUE_CONCAT(type, pique_pie)
+#define PIQUE_XT(type) struct PIQUE_CONCAT(pique_, type, _pie)
 #define PIQUE(type) \
 { \
   {0, 0, 0, &pique}, \
-  PIQUE_CONCAT(type, pique_push) \
+  PIQUE_CONCAT(pique_, type, _push) \
 };
 
 
@@ -77,15 +77,17 @@ int PIQUE_CONCAT(type, pique_push) ( \
 
 uintptr_t pique_add(uintptr_t, uintptr_t);
 // to get rvec size use (.begin, .end); for lvecs, (.end, .begin)
-piv_piece pique_inc(piv_piece*, const size_t);
+piv_piece pique_inc(piv_piece, const size_t);
 void pique_cpy(piv_piece, piv_piece);
-uintptr_t pique_sbrk(piv_3state*, size_t);
+size_t pique_sbrk(piv_3state*, size_t);
+piv_piece pique_remove(piv_3state*, piv_piece);
 
 piv_table const pique = {
   pique_add,
   pique_inc,
   pique_cpy,
-  pique_sbrk
+  pique_sbrk,
+  pique_remove
 };
 
 extern piv_table const pique;
@@ -94,14 +96,11 @@ uintptr_t pique_add(uintptr_t ptr, uintptr_t ptr_or_size) {
   return ptr - ptr_or_size;
 }
 
-piv_piece pique_inc(piv_piece* lvec, const size_t req_size) {
-  piv_piece piece;
-  piece.begin = lvec->end;
-  size_t size = pique_add(lvec->end, lvec->begin);
-  size = (size < req_size) ? size : req_size;
-  lvec->end = pique_add(lvec->end, size);
-  piece.end = lvec->end;
-  return piece;
+piv_piece pique_inc(piv_piece lvec, const size_t rdist) {
+  size_t dist = pique_add(lvec.end, lvec.begin);
+  dist = (dist < rdist) ? dist : rdist;
+  lvec.end = pique_add(lvec.end, dist);
+  return lvec;
 }
 
 void pique_cpy(piv_piece dest, piv_piece src) {
@@ -116,7 +115,7 @@ void pique_cpy(piv_piece dest, piv_piece src) {
     memmove((char*) rvec.end, (char*) src.end, data_size);
 }
 
-uintptr_t pique_sbrk(piv_3state* state, size_t size) {
+size_t pique_sbrk(piv_3state* state, size_t size) {
   size_t capacity, old_size, new_size;
   capacity = pique_add(state->lvec.end, state->lvec.begin);
   old_size = (pique_add(state->lvec.end, state->rend));
@@ -136,7 +135,18 @@ uintptr_t pique_sbrk(piv_3state* state, size_t size) {
   else {
     state->rend = pique_add(state->rend, size);
   }
-  return size;  
+  return size;
+}
+
+piv_piece pique_remove(piv_3state* state, piv_piece range) {
+  piv_piece ret_alloc = {0, 0};
+  if(range.end == state->rend && range.begin == state->lvec.end) {
+    ret_alloc = state->lvec;
+    state->rend = 0;
+    state->lvec.end = 0;
+    state->lvec.begin = 0;
+  }
+  return ret_alloc;
 }
 
 #endif

@@ -2,66 +2,155 @@
 <html>
 <head>
 <title>Pi V Library</title>
-<style>
-  span {white-space: pre; font-family: monospace; font-weight: bold;}
-  a {text-decoration: none;}
-  td {text-align: left; vertical-align: top; padding: 5px;}
-  th {text-align: right; vertical-align: top; padding: 5px;}
-  li {padding: 5px;}
-  pre {padding: 3px; padding-left: 20px; padding-right: 20px;
-       margin: 5px; background-color: HoneyDew;}
-</style>
+<link rel="stylesheet" type="text/css" href="piv.css" />
 </head>
 
 <body>
 
 <nav>
-  <b>abstract</b>
-| <a href="#motivation"></a>
-| <a href="#documentation">documentation</a>
-| <a href="#download-compile-test">download &amp; compile</a>
-| <a href="#namespace">namespace</a>
-| <a href="#limitations">limitations</a>
+<a href="index.html"><img alt="Pi V" src="images/piv.png" /></a>
+<ul class="top-level-nav-ul">
+  <li><a id="current-page" href="index.html">About</a></li>
+  <li><a href="intro.html">Intro</a></li>
+  <li><a href="index.html#download">Download</a></li>
+  <li><a href="index.html#test-123">Test 123</a></li>
+  <li><a href="index.html#compatibitity">Compatibility</a>
+    <ul class="nested-nav-ul">
+      <li><a href="index.html#compatibility">C89 vs C99</a></li>
+      <li><a href="index.html#compatibility">License</a></li>
+      <li><a href="index.html#compatibility">Naming Conventions</a></li>
+    </ul>
+  </li>
+  <li><a href="#">Blog</a></li>
+</ul>
+
+<h3><a href="containers.html">Containers +</a></h3>
+
+<h3><a href="functionality.html">Functionality +</a></h3>
+
 </nav>
-<hr />
+
+<div id="main-content-width-div">
 
 <section id="abstract">
-<h1>Pi V Library</h1>
+<h1>Pi V <span>(a data structure library for C]</span></h1>
 <p>
-The Pi-V library provides sequential data structures with automatic
-memory management, plus common search/sort algorithms,
-all written in fairly portable C.</p>
+The Pi V library provides type-agnostic, sequential data structures
+with automatic memory management, plus common algorithms,
+all written in fairly portable C.
+Its design is inspired by Alexander Stepanov's
+<a href="http://stepanovpapers.com/BYTE_com.htm" target="_blank">STL</a>
+but with some departures from that standard.
+</p>
 
-<p>Pointers are generalized as "memory vectors", iteration
-functions describe vector arithmetic depending on data structure,
-macros are used like C++ templates for storing any data type,
-and a framework of standardized function signatures plus a notion of
-vector ranges allow generic algorithms to be written and applied to
-different pairings of data structure &#x2a2f; data type.
+<p>Pointers and ranges are generalized to "memory vectors",
+transformation functions describe vector arithmetic within data structures,
+and macros are used like C++ templates for crossing generic data types 
+and functionality for different pairings of data structures &#x2a2f; data type.
+Finally, (C++)--like interface functions are generated for each container
+including push() and pop().
 </p>
 <p>Containers with automatic memory management are called <em>pies</em>
 in Pi-V and there are five families based on underlying data structure.
 </p>
 <table>
 <tr>
-  <td>Array-like<br />Containers</td>
-  <td>Blocked Array<br />Containers</td>
-  <td>Linked List<br /> Containers</td>
-  <td>Ordered Pair<br /> Containers</td>
-  <td>Hash Mapped<br /> Containers</td>
+  <td rowspan="5">I. Array-like Containers</td>
+  <td>pique</td>
+  <td></td>
+  <td>1D dynamic array</td>
 </tr>
 <tr>
-  <td>pique</td><td>pi_deque</td><td>pi_fwdlist</td><td>pi_map</td><td>pi_hashmap</td>
-</tr><tr>
-  <td>pitwo</td><td>pi_stack</td><td>pi_revlist</td><td>pi_multimap</td><td></td>
-</tr><tr>
-  <td>pi_array</td><td></td><td>pi_xorlist</td><td></td><td></td>
-</tr><tr>
-  <td>pi_matrix</td><td></td><td></td><td></td><td></td>
+  <td>pitwo</td>
+  <td></td>
+  <td>dynamic and static circular buffers</td>
+</tr>
+<tr>
+  <td>piv_matrix</td>
+  <td></td>
+  <td>packed 2D arrays</td>
+</tr>
+<tr>
+  <td>piv_bitstream</td>
+  <td></td>
+  <td>end points to correct byte, begin and alloc are for size in bits</td>
+</tr>
+<tr>
+  <td>piv_array</td>
+  <td></td>
+  <td>1D static array</td>
+</tr>
+<tr>
+  <td rowspan="3">II. Chunked Containers</td>
+  <td>piv_deque</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>piv_stack</td>
+  <td></td>
+  <td>provide frame and element push? preserve frames?</td>
+</tr>
+<tr>
+  <td>piv_sparsemat</td>
+  <td></td>
+  <td>uses 32 bit flag to indicate presense</td>
+</tr>
+<tr>
+  <td rowspan="3">III. Linked List Containers</td>
+  <td>piv_fwdlist</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>piv_xorlist</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>piv_hashmap</td>
+  <td></td>
+  <td>a queue pointing into a linked list</td>
+</tr>
+<tr>
+  <td rowspan="3">IV. Ordered Pair Containers</td>
+  <td>piv_map</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>piv_multimap</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>piv_heap</td>
+  <td></td>
+  <td>binary tree structure but implemented on maybe a deque</td>
+</tr>
+<tr>
+  <td rowspan="3">V. String Based Containers</td>
+  <td>piv_exptree</td>
+  <td></td>
+  <td>string headers grow to the left as structs</td>
+</tr>
+<tr>
+  <td>piv_strlist</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>piv_dictionary</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td colspan="4">
+(1) LIFO or (2) FIFO | (3) static or (4) dynamic | (5) aligned or (6) not | (7) zero allocated or (8) not | (9) (key, value) or (10) (key=value)
+  </td>
 </tr>
 </table>
 
-<img src="./figures/contiguous-structures.jpeg" alt="[contiguous structures]" width="350px"/>
 <img src="./figures/blocked-structures.jpeg" alt="[block structures]" width="325px"/>
 <img src="./figures/list-structures.jpeg" alt="[list structures]" width="300px"/>
 
@@ -82,17 +171,7 @@ equivalent, <a href="../pstdint.h">pstdint.h</a> written by Paul Hsieh.
 Little Endian.
 </p>
 
-<br/>
-<nav>
-  <b>abstract</b>
-| <a href="#motivation">motivation</a>
-| <a href="#download-compile-test">download compile test</a>
-| <a href="#documentation">documentation</a>
-| <a href="#limitations">limitations</a>
-</nav>
-<hr />
-
-<section id="motivation">
+<section>
 <h1>Impetus for Pi-V</h1>
 <p></p>
 </section>
@@ -146,13 +225,6 @@ All are released under the GLPL version 2.1.
 </tr>
 </table>
 </section>
-
-<nav>
-  <a href="#abstract">abstract</a>
-[ <b id="compile-and-test">compile and test</b>
-] <a href="#impetus">impetus</a>
-| <a href="#limitations">limitations</a>
-</nav>
 
 <section id="compile-and-test">
 <hr/>
@@ -245,12 +317,6 @@ lor_vector_t price_list = LOR_VECTOR(item, item_copy_constructor, item_destructo
 </pre>
 </section>
 
-<nav>
-<a href="#abstract">abstract</a>
-| <a href="#compile-and-test">compile and test</a>
-[ <b>impetus</b>
-] <a href="#limitations">limitations</a>
-</nav>
 
 <section id="limitations">
 <hr/>
@@ -267,7 +333,7 @@ lor_vector_t price_list = LOR_VECTOR(item, item_copy_constructor, item_destructo
       this but Pi-V ... sort of encourages ignoring the problem. One thing
       you can do is use the ternary operator for error checking pushes:
 <pre>
-(ptr = pique.push_back(&prime_numbers)) ? (*ptr = 17) : (printf("error"));
+(ptr = pique.push_back(&amp;prime_numbers)) ? (*ptr = 17) : (printf("error"));
 </pre>
       maybe a macro? ironically.
   </li>
@@ -292,15 +358,13 @@ Its not a mistake, its intentional. Promise.
 </p>
 </section>
 
-<nav>
-<a href="#abstract">abstract</a>
-| <a href="#compile-and-test">compile and test</a>
-| <a href="#impetus">impetus</a>
-[ <b>limitations</b> ]
-</nav>
-<hr/>
+</div><!-- main-content-width-div -->
+<footer>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Pi-V Library for C</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Ben Lorenzetti</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+Copyright (c) Ben Lorenzetti 2017<br />
+Redistribution and use is permitted under the terms of the 3-clause
+<a href="./FreeBSD_Documentation_License.txt">FreeBSD Documentation License</a>.
+</footer>
 
 </body>
 </html>

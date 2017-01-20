@@ -51,7 +51,7 @@ typedef union {
   uintptr_t rend;
 } piv_2state;
 
-struct piv_vector {
+struct piv_vec {
   uintptr_t end;
   uintptr_t begin;
   const struct piv_table_s* v_table;
@@ -65,11 +65,11 @@ struct piv_slice {
 };
 
 typedef union {
-  struct piv_vector structure;
+  struct piv_vec structure;
   piv_piece rvec;
   piv_2state state;
   char *end;
-} piv_vector;
+} pivec;
 
 typedef union {
   struct piv_slice structure;
@@ -80,9 +80,10 @@ typedef union {
 
 typedef struct piv_table_s {
   uintptr_t (*const add) (uintptr_t, uintptr_t);
-  piv_piece (*const inc) (piv_piece*, const size_t);
+  piv_piece (*const inc) (piv_piece, const size_t);
   void (*const cpy) (piv_piece, piv_piece); // (left vec dest, rvec src)
-  uintptr_t (*const sbrk) (piv_3state*, size_t);
+  size_t (*const sbrk) (piv_3state*, size_t);
+  piv_piece (*const remove) (piv_3state*, piv_piece);
 } piv_table;
 
 uintptr_t piv_malloc(size_t size) {
@@ -102,32 +103,38 @@ union { \
   type *end; \
 }
 
-#define PIV_VECTOR_XT(type) \
+#define PIVEC_XT(type) \
 union { \
-  struct piv_vector structure; \
+  struct piv_vec structure; \
   piv_2state state; \
   piv_piece rvec; \
+  piv_piece lvec; \
   type *end; \
 }
 
 #define PIV_SLICE(slice) \
 {slice.structure.rend, slice.state.lvec, slice.structure.vec.v_table};
 
-#define PIV_LVEC(slice) \
-{slice.state.lvec.end, slice.rvec.end, slice.structure.v_table};
+#define PIVEC(type) \
+{0, 0, &pique};
 
 #define PIV_INC(slice) \
-(slice.structure.v_table->inc(&slice.state.lvec, sizeof(*slice.end)))
+(slice.state.lvec = \
+ slice.structure.v_table->inc(slice.state.lvec, sizeof(*slice.end)) \
+)
+
+#define PIV_DET(piece) \
+((piece).end != (piece).begin)
 
 #define PIV_EMPTY(slice) \
 (slice.rvec.end == slice.rvec.begin)
 
 #define PIV_SIZE(slice) ( \
-(slice.structure.v_table->add(slice.rvec.begin, slice.rvec.end)) \
-/ sizeof(*slice.end))
+(size_t) ((slice.structure.v_table->add(slice.rvec.begin, slice.rvec.end)) \
+/ sizeof(*slice.end)))
 
 #define PIV_CAPACITY(slice) ( \
-(slice.structure.v_table->add(slice.state.lvec.end, \
-slice.state.lvec.begin)) / sizeof(*slice.end))
+(size_t) ((slice.structure.v_table->add(slice.state.lvec.end, \
+slice.state.lvec.begin)) / sizeof(*slice.end)))
 
 #endif
