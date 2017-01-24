@@ -2,35 +2,54 @@
 <html>
 <head>
 <title>Pi V Library</title>
-<link rel="stylesheet" type="text/css" href="piv.css" />
+<link rel="stylesheet" type="text/css" href="./default.css" />
 </head>
 
 <body>
 
 <nav>
-<a href="index.html"><img alt="Pi V" src="images/piv.png" /></a>
+<a href="piv.html"><img alt="Pi V Logo" src="piv_resources/logo.png" /></a>
+
+<h3 class="nav-heading">
+  <a href="containers.html">+ Containers</a>
+</h3>
+
+<h3 class="nav-heading">
+  <a href="algorithms.html">+ Algorithms</a>
+</h3>
+
+<h3 class="nav-heading">
+  <a id="current-page" href="piv.html">+ About</a>
+</h3>
+<hr class="nav-hr" />
 <ul class="top-level-nav-ul">
-  <li><a id="current-page" href="index.html">About</a></li>
   <li><a href="intro.html">Intro</a></li>
-  <li><a href="index.html#download">Download</a></li>
+  <li><a href="piv.html#download">Download</a></li>
   <li><a href="index.html#test-123">Test 123</a></li>
   <li><a href="index.html#compatibitity">Compatibility</a>
     <ul class="nested-nav-ul">
-      <li><a href="index.html#compatibility">C89 vs C99</a></li>
-      <li><a href="index.html#compatibility">License</a></li>
+      <li><a href="index.html#compatibility">C99, little endian</a></li>
+      <li><a href="index.html#compatibility">BSD License</a></li>
       <li><a href="index.html#compatibility">Naming Conventions</a></li>
     </ul>
   </li>
-  <li><a href="#">Blog</a></li>
+  <li><a href="#">Administrativa</a></li>
+  <li><a href="#">Benchmarks</a></li>
 </ul>
 
-<h3><a href="containers.html">Containers +</a></h3>
 
-<h3><a href="functionality.html">Functionality +</a></h3>
+<h3 class="nav-heading">
+  <a href="baselibrary.html">+ Vectors &amp; Slices</a>
+</h3>
 
 </nav>
 
 <div id="main-content-width-div">
+
+<div id="leaderboard">
+<!--<img src="https://lh5.ggpht.com/NFYFP2H9CCP50vAQNLa7AtCj_mbbYmOzY978fZqd31oL5qOdvXgxU3KW8ek2VgvIOvTqWY0=w728" />
+-->
+</div>
 
 <section id="abstract">
 <h1>Pi V <span>(a data structure library for C]</span></h1>
@@ -43,19 +62,36 @@ Its design is inspired by Alexander Stepanov's
 but with some departures from that standard.
 </p>
 
-<p>Pointers and ranges are generalized to "memory vectors",
+<p>Pointers and ranges are generalized to <em>memory vectors</em>,
 transformation functions describe vector arithmetic within data structures,
 and macros are used like C++ templates for crossing generic data types 
-and functionality for different pairings of data structures &#x2a2f; data type.
-Finally, (C++)--like interface functions are generated for each container
+and functionality for different pairings of data type &#x2a2f; data structure.
+Finally, (C++)--like interface functions are generated for each pair
 including push() and pop().
 </p>
-<p>Containers with automatic memory management are called <em>pies</em>
-in Pi-V and there are five families based on underlying data structure.
+<p>A full variety of containers, which are data structures <em>with state</em>
+for automatic memory management, are available in Pi V and are
+summarized in <a href="#table1">table 1</a>.
+These containers are called <em>pies</em> in Pi V and are organized into
+five classes for documentation.
 </p>
-<table>
+<p>
+Most algorithms can be applied only to certain classes
+of containers. For example piv_bsearch() has logarithmic complexity
+guarantees only for array-like, block allocated, and ordered pair 
+containers but the DO...FOR EACH idiom can be applied to any
+container because they are all sequential.
+</p>
+<table id="table1">
+<caption>Table 1: Listing of Containers in Pi V</caption>
 <tr>
-  <td rowspan="5">I. Array-like Containers</td>
+  <td></td>
+  <td>piv_slice</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td rowspan="4">I. Array-like Containers</td>
   <td>pique</td>
   <td></td>
   <td>1D dynamic array</td>
@@ -66,22 +102,17 @@ in Pi-V and there are five families based on underlying data structure.
   <td>dynamic and static circular buffers</td>
 </tr>
 <tr>
-  <td>piv_matrix</td>
+  <td>pimat</td>
   <td></td>
-  <td>packed 2D arrays</td>
+  <td>fixed size 1D and 2D arrays</td>
 </tr>
 <tr>
-  <td>piv_bitstream</td>
+  <td>piv_bitqueue</td>
   <td></td>
   <td>end points to correct byte, begin and alloc are for size in bits</td>
 </tr>
 <tr>
-  <td>piv_array</td>
-  <td></td>
-  <td>1D static array</td>
-</tr>
-<tr>
-  <td rowspan="3">II. Chunked Containers</td>
+  <td rowspan="3">II. Block allocated Containers</td>
   <td>piv_deque</td>
   <td></td>
   <td></td>
@@ -129,15 +160,10 @@ in Pi-V and there are five families based on underlying data structure.
   <td>binary tree structure but implemented on maybe a deque</td>
 </tr>
 <tr>
-  <td rowspan="3">V. String Based Containers</td>
+  <td rowspan="2">V. String Based Containers</td>
   <td>piv_exptree</td>
   <td></td>
   <td>string headers grow to the left as structs</td>
-</tr>
-<tr>
-  <td>piv_strlist</td>
-  <td></td>
-  <td></td>
 </tr>
 <tr>
   <td>piv_dictionary</td>
@@ -146,7 +172,7 @@ in Pi-V and there are five families based on underlying data structure.
 </tr>
 <tr>
   <td colspan="4">
-(1) LIFO or (2) FIFO | (3) static or (4) dynamic | (5) aligned or (6) not | (7) zero allocated or (8) not | (9) (key, value) or (10) (key=value)
+(1) LIFO or (2) FIFO | (3) zero allocated or (4) not | (5) (key, value) or (6) (key=value)
   </td>
 </tr>
 </table>
@@ -359,8 +385,9 @@ Its not a mistake, its intentional. Promise.
 </section>
 
 </div><!-- main-content-width-div -->
-<footer>
 
+<footer>
+<hr />
 Copyright (c) Ben Lorenzetti 2017<br />
 Redistribution and use is permitted under the terms of the 3-clause
 <a href="./FreeBSD_Documentation_License.txt">FreeBSD Documentation License</a>.
