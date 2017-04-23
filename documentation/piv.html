@@ -30,7 +30,7 @@
     <ul class="nested-nav-ul">
       <li><a href="index.html#compatibility">C99, little endian</a></li>
       <li><a href="index.html#compatibility">BSD License</a></li>
-      <li><a href="index.html#compatibility">Naming Conventions</a></li>
+      <li><a href="naming_conventions.txt">Naming Conventions</a></li>
     </ul>
   </li>
   <li><a href="#">Administrativa</a></li>
@@ -54,26 +54,25 @@
 <section id="abstract">
 <h1>Pi V <span>(a data structure library for C]</span></h1>
 <p>
-The Pi V library provides type-agnostic, sequential data structures
-with automatic memory management, plus common algorithms,
-all written in fairly portable C.
+The Pi V library provides data structures, memory management, and
+common algorithms for any data in C.
 Its design is inspired by Alexander Stepanov's
 <a href="http://stepanovpapers.com/BYTE_com.htm" target="_blank">STL</a>
 but with some departures from that standard.
 </p>
 
 <p>Pointers and ranges are generalized to <em>memory vectors</em>,
-transformation functions describe vector arithmetic within data structures,
-and macros are used like C++ templates for crossing generic data types 
-and functionality for different pairings of data type &#x2a2f; data structure.
-Finally, (C++)--like interface functions are generated for each pair
-including push() and pop().
+transformation functions describe vector arithmetic in a data space,
+and macros are used like C++ templates for pairing generic data types 
+with different data structures and structure invarients.
+Finally, (C++)--like interface function tables are generated for each
+pairing for convenience.
 </p>
-<p>A full variety of containers, which are data structures <em>with state</em>
-for automatic memory management, are available in Pi V and are
-summarized in <a href="#table1">table 1</a>.
-These containers are called <em>pies</em> in Pi V and are organized into
-five classes for documentation.
+<p>Containers, which are data structures with <em>rules and state</em>
+for memory management, are called pies in Pi V.
+The full variety of containers are listed in <a href="#table1">table 1</a>.
+They are implemented in individual header files for complete compiler
+parsing but are organized in five classes for human reading.
 </p>
 <p>
 Most algorithms can be applied only to certain classes
@@ -81,21 +80,22 @@ of containers. For example piv_bsearch() has logarithmic complexity
 guarantees only for array-like, block allocated, and ordered pair 
 containers but the DO...FOR EACH idiom can be applied to any
 container because they are all sequential.
+A common memory allocator, the common vector interface, and this
+collection of common algorithms are all provided in the
+<a href="#">Pi V base library</a>.
 </p>
 <table id="table1">
 <caption>Table 1: Listing of Containers in Pi V</caption>
 <tr>
-  <td></td>
-  <td>piv_slice</td>
-  <td></td>
-  <td></td>
-</tr>
-<tr>
-  <td rowspan="4">I. Array-like Containers</td>
+  <td rowspan="5">I. Random Access Structures</td>
   <td>pique</td>
   <td></td>
   <td>1D dynamic array</td>
 </tr>
+<tr>
+  <td>pideque</td>
+  <td></td>
+  <td></td>
 <tr>
   <td>pitwo</td>
   <td></td>
@@ -107,44 +107,59 @@ container because they are all sequential.
   <td>fixed size 1D and 2D arrays</td>
 </tr>
 <tr>
-  <td>piv_bitqueue</td>
+  <td>pir_array</td>
   <td></td>
-  <td>end points to correct byte, begin and alloc are for size in bits</td>
+  <td>reverse of pique</td>
 </tr>
 <tr>
-  <td rowspan="3">II. Block allocated Containers</td>
-  <td>piv_deque</td>
+  <td rowspan="4">II. List Structures</td>
+  <td>pifwd_list</td>
   <td></td>
   <td></td>
 </tr>
 <tr>
-  <td>piv_stack</td>
+  <td>pibid_list</td>
   <td></td>
-  <td>provide frame and element push? preserve frames?</td>
+  <td></td>
 </tr>
 <tr>
-  <td>piv_sparsemat</td>
+  <td>pixor_list</td>
   <td></td>
   <td>uses 32 bit flag to indicate presense</td>
 </tr>
 <tr>
-  <td rowspan="3">III. Linked List Containers</td>
-  <td>piv_fwdlist</td>
+  <td>piskip_list</td>
   <td></td>
   <td></td>
 </tr>
 <tr>
-  <td>piv_xorlist</td>
+  <td rowspan="5">III. Search Tree Structures</td>
+  <td>pibinary_tree</td>
   <td></td>
   <td></td>
 </tr>
 <tr>
-  <td>piv_hashmap</td>
+  <td>pixor_tree</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>pinary_tree</td>
   <td></td>
   <td>a queue pointing into a linked list</td>
 </tr>
 <tr>
-  <td rowspan="3">IV. Ordered Pair Containers</td>
+  <td>pibalanced_tree</td>
+  <td></td>
+  <td></td>
+</td>
+<tr>
+  <td>pibuffer_tree</td>
+  <td></td>
+  <td></td>
+</td>
+<tr>
+  <td rowspan="3">IV. String Data Varients</td>
   <td>piv_map</td>
   <td></td>
   <td></td>
@@ -160,7 +175,7 @@ container because they are all sequential.
   <td>binary tree structure but implemented on maybe a deque</td>
 </tr>
 <tr>
-  <td rowspan="2">V. String Based Containers</td>
+  <td rowspan="2">V. Ordered Pair Invarients</td>
   <td>piv_exptree</td>
   <td></td>
   <td>string headers grow to the left as structs</td>
@@ -174,6 +189,11 @@ container because they are all sequential.
   <td colspan="4">
 (1) LIFO or (2) FIFO | (3) zero allocated or (4) not | (5) (key, value) or (6) (key=value)
   </td>
+</tr>
+<tr>
+  <td>pislice</td>
+  <td></td>
+  <td></td>
 </tr>
 </table>
 

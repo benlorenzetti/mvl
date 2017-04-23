@@ -1,0 +1,13 @@
+"Let them eat pie"
+The programmers have no data structures.
+
+Vector overload in C++ and other languages.
+In future language, ranges will be identical to vectors because not objects.
+
+Pi for circularity of discrete addresses and containers.
+
+V for vector, slice, etc.
+
+Pieces lists.
+
+Namespace pollution and design.

@@ -58,7 +58,7 @@ footer {
 /* Left Side Navigation Menu */
 nav {
   background-color: #eeeeee; 
-  width: 240px;
+  width: 250px;
 }
 nav img {
   margin: 0 auto;
@@ -75,6 +75,9 @@ nav a {
 .nav-heading {
   margin-bottom: 0;
   padding-bottom: 0;
+}
+.nav-sub-heading {
+  margin: 0;
 }
 .nav-hr {
   margin-top: 0;
@@ -99,7 +102,7 @@ nav ul li a {
 ul.nested-nav-ul {
   padding: 0;
   margin: 0;
-  margin-left: 1em;
+  margin-left: 2em;
   list-style-type: none;
 }
 nav ul li ul li a { font-size: 11pt; }
