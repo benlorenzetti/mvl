@@ -1,5 +1,5 @@
-#ifndef PIV_STDLIB_H
-#define PIV_STDLIB_H
+#ifndef PIVLIB_H
+#define PIVLIB_H
 
 /* 
  * Copyright (C) 2017 Ben Lorenzetti
@@ -31,60 +31,58 @@
  */
 
 
-#include "pstdint.h"
-#include <stdlib.h>
+#include "pivlib_arch.h"
 
-struct piv_table_s;
+typedef uintptr_t piW;
+typedef struct {uintptr_t N;} piN;
+
+piW pi_power2(char);
+char pi_log2floor(piW x);
+char pi_log2ceil(piW x);
 
 typedef struct {
-  uintptr_t end;
-  uintptr_t begin;
-} piv_piece;
+	piN nth;
+	piN zero;
+} pirvec;
 
 typedef struct {
-  uintptr_t rend;
-  piv_piece lvec;
-} piv_3state;
+	piN zero;
+	piW memory; // alloc_size, prev_node, 1st_tree_node, etc.
+} pilvec;
 
-typedef union {
-  piv_piece lvec;
-  uintptr_t rend;
-} piv_2state;
 
-struct piv_vec {
-  uintptr_t end;
-  uintptr_t begin;
-  const struct piv_table_s* v_table;
+typedef struct {
+	piN rref;
+	pilvec lvec;
+} pi_slice;
+
+struct pi_vtable;
+struct pie_object {
+	piN rref;
+	pilvec lvec;
+	struct pi_vtable* vtable;
 };
 
-struct piv_slice {
-  uintptr_t end;
-  uintptr_t begin;
-  uintptr_t root;
-  const struct piv_table_s* v_table;
+union pie {
+	piN rref;
+	pirvec rvec;
+	pi_slice state;
+	struct pie_object obj;
 };
 
-typedef union {
-  struct piv_vec structure;
-  piv_piece rvec;
-  piv_2state state;
-  char *end;
-} pivec;
+struct piterator {
+	pilvec lvec;
+	struct pi_vtable* vtable;
+};
 
-typedef union {
-  struct piv_slice structure;
-  piv_3state state;
-  piv_piece rvec;
-  char* end;
-} piv_slice;
-
-typedef struct piv_table_s {
+/*
+struct pi_vtable {
   uintptr_t (*const add) (uintptr_t, uintptr_t);
   piv_piece (*const inc) (piv_piece, const size_t);
   void (*const cpy) (piv_piece, piv_piece); // (left vec dest, rvec src)
   size_t (*const sbrk) (piv_3state*, size_t);
   piv_piece (*const remove) (piv_3state*, piv_piece);
-} piv_table;
+};
 
 uintptr_t piv_malloc(size_t size) {
   void* new = malloc(size);
@@ -94,6 +92,7 @@ uintptr_t piv_malloc(size_t size) {
 void piv_free(uintptr_t ptr) {
   free((void*) ptr);
 }
+*/
 
 #define PIV_SLICE_XT(type) \
 union { \
