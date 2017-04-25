@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+
+<body>
+
+<section>
+
+<figure>
+  <img src="./preface/circos-conde-nast-large.png" width="400px;">
+  <caption>An illustration of the human genome showing location of
+           genes implicated in disease, regions of with 
+           self-similarity and those with structural variation within
+           populations.
+  </caption>
+</figure>
+
+<p>Circos: An information aesthetic for comparative genomics
+
+    Martin I Krzywinski, Jacqueline E Schein, Inanc Birol, Joseph Connors, Randy Gascoyne, Doug Horsman, Steven J Jones, and Marco A Marra 
+
+Genome Res. Published in Advance June 18, 2009, doi:10.1101/gr.092759.109 
+</p>
+
+<h1>Preface</h1>
+<p>
+This book is about language, specifically a programming language
+called ad1, but also human language and celebrating the great works
+of civilization.
+</p>
+
+<p>
+Programming is the art of describing and modeling the &#8477;eal world
+in limited, digital computers. We model science, human relationship,
+economics, war, and we navigate, drive, automate, even fly in space.
+Programmers are not isolated from the real world, we are
+professionals who learn from the great works and great mistakes
+of history.
+</p>
+
+<figure>
+  <img src="./preface/facebook-graph.jpg" width="400px;">
+  <caption>Locality of Facebook Friendship</caption>  
+</figure>
+<p>Citation access denied. https://www.facebook.com/notes/facebook-engineering/visualizing-friendships/469716398919
+</p>
+
+<figure>
+  <img src="./preface/weapons-trade.png" width="400px;">
+  <caption>Cold war is over?</caption>
+</figure>
+<p>https://hai.nmau.de/the-global-weapon-trade-under-obama-and-bush-128c0561cc32</p>
+
+<figure>
+  <img src="./preface/only-half-the-fed-graph.png" width="400px;">
+</figure>
+
+<p>
+But the real world is vast, massively
+parallel, and messily interconnected by webs of forces&mdash;to say
+nothing of the world of ideas, vague, with many actors, and
+interrelated and even recursively defined.
+
+</section>
+
+<p>Neil Armstrong</p>
+<blockquote>
+That's one small step for man, one giant leap for mankind.
+</blockquote>
+
+<p>Winston Churchill</p>
+<blockquote>
+We make a living by what we get, but we make life by what we give.
+</blockquote>
+<blockquote>
+We shape our buildings; thereafter they shape us.
+</blockquote>
+<blockquote>
+The truth is incontrovertible. Malice may attack it, ignorance may
+deride it, but in the end, there it is.
+</blockquote>
+<blockquote>
+A lie gets halfway around the world before the truth has a chance to
+get its pants on.
+</blockquote>
+<blockquote>
+From Stettin in the Baltic to Trieste in the Adriatic, an iron curtain
+has descended across the Continent.
+</blockquote>
+<blockquote>
+In the course of my life, I have often had to eat my words, and I
+must confess that I have always found it a wholesome diet.
+</blockquote>
+<blockquote>
+I am always ready to learn although I do not always like being taught.
+</blockquote>
+<blockquote>
+The power of man has grown in every sphere except over himself.
+</blockquote>
+<blockquote>
+Now this is not the end. It is not even the beginning of the end.
+But it is, perhaps, the end of the beginning.
+</blockquote>
+<blockquote>
+We contend that for a nation to tax itself into prosperity is like a
+man standing in a bucket and trying to lift himself up by the handle.
+</blockquote>
+<blockquote>
+Short words are best and the old words when short are the best of all.
+</blockquote>
+<blockquote>The empires of the future are the empires of the mind.
+</blockquote>
+<blockquote>Some people regard private enterprise as a predatory
+tiger to be shot. Others look on it as a cow they can milk.
+Not enough people see it as a healthy horse, pulling a sturdy wagon.
+</blockquote>
+<blockquote>
+If we open a quarrel between the past and the present, we shall
+find that we have lost the future.
+</blockquote>
+<blockquote>
+Ending a sentence with a preposition up with which I will not put.
+</blockquote>
+<blockquote>
+All the great things are simple, and many can be expressed in a single
+word: freedom, justice, honor, duty, mercy, hope.
+</blockquote>
+<blockquote>
+There are a terrible lot of lies going about the world, and the worst
+of it is that half of them are true.
+</blockquote>
+<blockquote>
+It has been said that democracy is the worst form of government
+except all the others that have been tried.
+</blockquote>
+<blockquote>
+If you have ten thousand regulations you destroy all respect for
+the law
+</blockquote>
+<blockquote>
+If the Almighty wore to rebuild the world and asked me for advice,
+I would have English Channels round every country. And the
+Atmosphere would be such that anything which attempted to fly
+would be set on fire.
+</blockquote>
+<blockquote>
+He has all of the virtues I dislike and none of the vices I admire.
+</blockquote>
+<blockquote>
+We shall draw from the heart of suffering itself the means of
+inspiration and survival.
+</blockquote>
+<blockquote>
+Russia is a riddle wrapped in a mystery inside an enigma.
+</blockquote>
+<blockquote>I'm just preparing my impromptu remarks.</blockquote>
+<blockquote>We are stripped bare by the curse of plenty.</blockquote>
+
+<p>Mark Twain</p>
+<blockquote>Denial ain't just a river in Egypt.</blockquote>
+<blockquote>
+You can't depend on your eyes when your imagination is out of focus.
+</blockquote>
+<blockquote>Sho was not quite what you would call refined.
+She was not quite what you would call unrefined. She was the kind
+of person that keeps a parrot.
+</blockquote>
+<blockquote>The educated Southerner has no use for an 'r', except
+at the beginning of a word.</blockquote>
+<blockquote>Civilization is the limitless multiplication of
+unnecessary necessities.</blockquote>
+<blockquote>It is by the goodness of God that in our country we have
+those three unspeakably precious things: freedom of speech,
+freedom of conscience, and the prudence never to practice
+either of them.
+</blockquote>
+<blockquote>
+The right word may be effective, but no word was ever as effective
+as a rightly timed pause.
+</blockquote>
+<blockquote>
+Ideally a book would have no order to it, and the reader would have to
+discover his own.
+</blockquote>
+<p>Horatio Nelson</p>
+<blockquote>I cannot command winds and weather</blockquote>
+<p>Marcus Aurelius</p>
+<blockquote>
+The universe is change; our life is what our thoughts make it.
+</blockquote>
+<blockquote>Confine yourself to the present</blockquote>
+<blockquote>The act of dying is one of the acts of life.</blockquote>
+<blockquote>Death, like birth, is a secret of Nature.</blockquote>
+<p>Napoleon Bonaparte</p>
+<blockquote>
+Men are more easily governed through their vices than through
+their virtues.
+</blockquote>
+<blockquote>What is history but a fable agreed upon?</blockquote>
+<blockquote>History is a set of lies agreed upon</blockquote>
+<blockquote>The truest wisdom is a resolute determination.</blockquote>
+<blockquote>
+From the heights of these pyramids, forty centuries look down on us.
+</blockquote>
+<blockquote>I can no longer obey; I have tasted command, and I
+cannot give it up.</blockquote>
+<blockquote>England is a nation of shopkeepers.</blockquote>
+<blockquote>A constitution should be short and obscure</blockquote>
+<blockquote>A revolution is an idea which has found its bayonets.
+</blockquote>
+<blockquote>
+I love power. But it is as an artist that I love it. I love it as a
+mussician loves his violin, to draw out its sounds and chords and
+harmonies.
+</blockquote>
+
+<p>General Patton</p>
+<blockquote>
+Never tell people how to do things.
+Tell them what to do and they will surprise you with their ingenuity.
+</blockquote>
+<blockquote>Say what you mean and mean what you say.</blockquote>
+<blockquote>
+A good solution applied with vigor now is better than a perfect solution
+applied ten minutes later.
+</blockquote>
+<blockquote>Lead me, follow me, or get out of my way</blockquote>
+<blockquote>Fixed fortifications are monuments to man's stupidity.<blockquote>
+<pre>
+Through a Glass, Darkly
+by Gen. George S. Patton Jr.
+
+Through the travail of the ages,
+Midst the pomp and toil of war,
+Have I fought and strove and perished
+Countless times upon this star.
+
+In the form of many people
+In all panoplies of time
+Have I seen the luring vision
+Of the Victory Maid, sublime.
+
+I have battled for fresh mammoth,
+I have warred for pastures new,
+I have listed to the whispers
+When the race trek instinct grew.
+
+I have known the call to battle
+In each changeless changing shape
+From the high souled voice of conscience
+To the beastly lust for rape.
+
+I have sinned and I have suffered,
+Played the hero and the knave;
+Fought for belly, shame, or country,
+And for each have found a grave.
+
+I cannot name my battles
+For the visions are not clear,
+Yet, I see the twisted faces
+And I feel the rending spear.
+
+Perhaps I stabbed our Savior
+In His sacred helpless side.
+Yet, I've called His name in blessing
+When after times I died.
+
+In the dimness of the shadows
+Where we hairy heathens warred,
+I can taste in thought the lifeblood;
+We used teeth before the sword.
+
+While in later clearer vision
+I can sense the coppery sweat,
+Feel the pikes grow wet and slippery
+When our Phalanx, Cyrus met.
+
+Hear the rattle of the harness
+Where the Persian darts bounced clear,
+See their chariots wheel in panic
+From the Hoplite's leveled spear.
+
+See the goal grow monthly longer,
+Reaching for the walls of Tyre.
+Hear the crash of tons of granite,
+Smell the quenchless eastern fire.
+
+Still more clearly as a Roman,
+Can I see the Legion close,
+As our third rank moved in forward
+And the short sword found our foes.
+
+Once again I feel the anguish
+Of that blistering treeless plain
+When the Parthian showered death bolts,
+And our discipline was in vain.
+
+I remember all the suffering
+Of those arrows in my neck.
+Yet, I stabbed a grinning savage
+As I died upon my back.
+
+Once again I smell the heat sparks
+When my Flemish plate gave way
+And the lance ripped through my entrails
+As on Crecy's field I lay.
+
+In the windless, blinding stillness
+Of the glittering tropic sea
+I can see the bubbles rising
+Where we set the captives free.
+
+Midst the spume of half a tempest
+I have heard the bulwarks go
+When the crashing, point blank round shot
+Sent destruction to our foe.
+
+I have fought with gun and cutlass
+On the red and slippery deck
+With all Hell aflame within me
+And a rope around my neck.
+
+And still later as a General
+Have I galloped with Murat
+When we laughed at death and numbers
+Trusting in the Emperor's Star.
+
+Till at last our star faded,
+And we shouted to our doom
+Where the sunken road of Ohein
+Closed us in it's quivering gloom.
+
+So but now with Tanks a'clatter
+Have I waddled on the foe
+Belching death at twenty paces,
+By the star shell's ghastly glow.
+
+So as through a glass, and darkly
+The age long strife I see
+Where I fought in many guises,
+Many names, but always me.
+
+And I see not in my blindness
+What the objects were I wrought,
+But as God rules o'er our bickerings
+It was through His will I fought.
+
+So forever in the future,
+Shall I battle as of yore,
+Dying to be born a fighter,
+But to die again, once more.
+</pre>
+
+<section>
+<p>April 3, 1968<br>Memphis, Tennessee</p>
+<h1>I've Been to the Mountaintop</h2>
+<h2>Rev. Dr. Martin Luther King Jr.</h2>
+<h2>April 3, 1968</h2>
+<h2>Memphis, TN.</h2>
+<p>
+Thank you very kindly, my friends. 
+As I listened to Ralph Abernathy and his eloquent and generous
+introduction and then thought about myself, I wondered who he
+was talking about. [Laughter] It's always good to have your closest
+friend and associate to say something good about you, and 
+Ralph Abernathy is the best friend that I have in the world.
+</p>
+<p>
+I'm delighted to see each of you here tonight in spite of a storm
+warning. You reveal that you are determined [Audience:] (Right) to 
+go on anyhow. (Yeah, All right) Something is happening in Memphis,
+something is happening in our world. And you know, if I were standing
+at the beginning of time with the possibility of taking a kind of 
+general and panoramic view of the whole of human history up to now, 
+and the Almighty said to me, "Martin Luther King, which age would you
+like to live in?" I would take my mental flight by Egypt (Yeah), 
+and I would watch God's children in their magnificent trek from the 
+dark dungeons of Egypt through, or rather, across the Red Sea, 
+through the wilderness, on toward the Promised Land. And in spite of 
+its magnificence, I wouldn't stop there. (All right)
+</p>
+<p>
+I would move on by Greece, and take my mind to Mount Olympus.
+And I would see Plato, Aristotle, Socrates, Euripides, and
+Aristophanes assembled around the Parthenon [Applause], and I
+would watch them around the Parthenon as they discussed the
+great and eternal issues of reality. But I wouldn't stop there.
+(Oh yeah)
+</p>
+<p>
+I would go on even to the great heyday of the Roman Empire (Yes),
+and I would see developments around there, through various emperors
+and leaders. But I wouldn't stop there. (Keep on)
+</p>
+<p>
+I would even come up to the day of the Renaissance and get a quick
+picture of all that the Renaissance did for the cultural and
+aesthetic life of man. But I wouldn't stop there. (Yeah)
+</p>
+<p>
+I would even go by the way that the man for whom I'm named had his
+habitat, and I would watch Martin Luther as he tacks his ninety-five
+theses on the door at the church of Wittenberg. But I wouldn't stop
+there. (All right) But I wouldn't stop there. (Yeah) [Applause]
+</p>
+<p>
+I would come on up even to 1863 and watch a vacillating president by
+the name of Abraham Lincoln finally come to the conclusion that he
+had to sign the Emancipation Proclamation. But I wouldn't stop there.
+(Yeah) [Applause]
+</p>
+<p>
+I would even come up to the early thirties and see a man grappling
+with the problems of the bankruptcy of his nation, and come with an
+eloquent cry that "we have nothing to fear but fear itself." 
+But I wouldn't stop there. (All right)
+</p>
+<p>
+Strangely enough, I would turn to the Almighty and say, "If you allow
+me to live just a few years in the second half of the twentieth
+century, I will be happy." [Applause]
+</p>
+<p>
+Now that's a strange statement to make because the world is all
+messed up. The nation is sick, trouble is in the land, confusion all
+around. That's a strange statement. But I know, somehow, that only
+when it is dark enough can you see the stars. (All right, Yes) And I
+see God working in this period of the twentieth century in a way that
+men in some strange way are responding. Something is happening in our
+world. (Yeah) The masses of people are rising up. And wherever they
+are assembled today, whether they are in Johannesburg, South Africa;
+Nairobi, Kenya; Accra, Ghana; New York City; Atlanta, Georgia;
+Jackson, Mississippi; or Memphis, Tennessee, the cry is always the
+same: "We want to be free." [Applause]
+</p>
+<p>
+And another reason I'm happy to live in this period is that we have 
+been forced to a point where we are going to have to grapple with
+the problems that men have been trying to grapple with through
+history, but the demands didn't force them to do it. Survival demands
+that we grapple with them. (Yes) Men for years now have been talking
+about war and peace. But now no longer can they just talk about it.
+It is no longer a choice between violence and nonviolence in this
+world; it's nonviolence or nonexistence. That is where we are today.
+[Applause]
+</p>
+<p>
+And also, in the human rights revolution, if something isn't done and
+done in a hurry to bring the colored peoples of the world out of
+their long years of poverty; their long years of hurt and neglect,
+the whole world is doomed. (All right) [Applause] Now I'm just happy
+that God has allowed me to live in this period, to see what is
+unfolding. And I'm happy that he's allowed me to be in Memphis.
+(Oh yeah)
+</p>
+<p>
+I can remember [Applause], I can remember when Negroes were just
+going around, as Ralph has said so often, scratching where they
+didn't itch and laughing when they were not tickled.
+[Laughter, applause] But that day is all over. (Yeah) [Applause]
+We mean business now and we are determined to gain our rightful place
+in God's world. (Yeah) [Applause] And that's all this whole thing is
+about. We aren't engaged in any negative protest and in any negative
+arguments with anybody. We are saying that we are determined to be
+men. We are determined to be people. (Yeah) We are saying [Applause],
+we are saying that we are God's children. (Yeah) [Applause] And if we
+are God's children, we don't have to live like we are forced to live.
+</p>
+<p>
+Now what does all this mean in this great period of history? It means
+that we've got to stay together. (Yeah) We've got to stay together
+and maintain unity. You know, whenever Pharaoh wanted to prolong the
+period of slavery in Egypt, he had a favorite, favorite formula of
+doing it. What was that? He kept the slaves fighting among themselves.
+[Applause] But whenever the slaves get together, something happens in
+Pharaoh's court, and he cannot hold the slaves in slavery. When the
+slaves get together, that's the beginning of getting out of slavery.
+[Applause] Now let us maintain unity.
+</p>
+<p>
+Secondly, let us keep the issues where they are. (Right) The issue is
+injustice. The issue is the refusal of Memphis to be fair and honest
+in its dealings with its public servants, who happen to be sanitation
+workers. [Applause] Now we've got to keep attention on that.
+(That's right) That's always the problem with a little violence. 
+You know what happened the other day, and the press dealt only with
+the window breaking. (That's right) I read the articles. They very
+seldom got around to mentioning the fact that 1,300 sanitation workers
+are on strike, and that Memphis is not being fair to them, and that
+Mayor Loeb is in dire need of a doctor. They didn't get around to
+that. (Yeah) [Applause]
+</p>
+<p>
+Now we're going to march again, and we've got to march again (Yeah),
+in order to put the issue where it is supposed to be
+(Yeah) [Applause] and force everybody to see that there are thirteen
+hundred of God's children here suffering (That's right), sometimes
+going hungry, going through dark and dreary nights wondering how
+this thing is going to come out. That's the issue. (That's right)
+And we've got to say to the nation, we know how it's coming out.
+For when people get caught up with that which is right and they are
+willing to sacrifice for it, there is no stopping point short of
+victory. [Applause]
+</p>
+<p>
+We aren't going to let any mace stop us. We are masters in our
+nonviolent movement in disarming police forces. They don't know what
+to do. I've seen them so often. I remember in Birmingham, Alabama,
+when we were in that majestic struggle there, we would move out of
+the Sixteenth Street Baptist Church day after day. By the hundreds we
+would move out, and Bull Connor would tell them to send the dogs
+forth, and they did come. But we just went before the dogs singing,
+"Ain't gonna let nobody turn me around." [Applause] Bull Connor next
+would say, "Turn the fire hoses on." (Yeah) And as I said to you the
+other night, Bull Connor didn't know history. He knew a kind of
+physics that somehow didn't relate to the trans-physics that we knew
+about. And that was the fact that there was a certain kind of fire
+that no water could put out. [Applause] And we went before the fire
+hoses. (Yeah) We had known water. (All right) If we were Baptist or
+some other denominations, we had been immersed. If we were Methodist
+or some others, we had been sprinkled. But we knew water.
+That couldn't stop us. [Applause]
+</p>
+<p>
+And we just went on before the dogs and we would look at them, and
+we'd go on before the water hoses and we would look at it. And we'd
+just go on singing, "Over my head, I see freedom in the air." (Yeah)
+[Applause] And then we would be thrown into paddy wagons, and
+sometimes we were stacked in there like sardines in a can.
+(All right) And they would throw us in, and old Bull would say,
+"Take 'em off." And they did, and we would just go on in the paddy
+wagon singing, "We Shall Overcome." (Yeah) And every now and then
+we'd get in jail, and we'd see the jailers looking through the
+windows being moved by our prayers (Yes) and being moved by our words
+and our songs. (Yes) And there was a power there which Bull Connor
+couldn't adjust to (All right), and so we ended up transforming Bull
+into a steer, and we on our struggle in Birmingham. [Applause]
+</p>
+<p>
+Now we've got to go on in Memphis just like that. I call upon you to
+be with us when we go out Monday. (Yes) Now about injunctions. We have
+an injunction and we're going into court tomorrow morning (Go ahead)
+to fight this illegal, unconstitutional injunction. All we say to
+America is to be true to what you said on paper. [Applause] If I lived
+in China or even Russia, or any totalitarian country, maybe I could
+understand some of these illegal injunctions. Maybe I could understand
+the denial of certain basic First Amendment privileges, because they
+haven't committed themselves to that over there. But somewhere I read
+of the freedom of assembly. Somewhere I read (Yes) of the freedom of
+speech. (Yes) Somewhere I read (All right) of the freedom of press.
+(Yes) Somewhere I read (Yes) that the greatness of America is the
+right to protest for right. [Applause] And so just as I say we aren't
+going to let any dogs or water hoses turn us around, we aren't going
+to let any injunction turn us around. [Applause] We are going on.
+We need all of you.
+</p>
+<p>
+You know, what's beautiful to me is to see all of these ministers of
+the Gospel. (Amen) It's a marvelous picture. (Yes) Who is it that is
+supposed to articulate the longings and aspirations of the people
+more than the preacher? Somewhere the preacher must have a kind of
+fire shut up in his bones (Yes), and whenever injustice is around he
+must tell it. (Yes) Somehow the preacher must be an Amos, who said,
+"When God Speaks, who can but prophesy?" (Yes) Again with Amos,
+"Let justice roll down like waters and righteousness like a mighty
+stream." (Yes) Somehow the preacher must say with Jesus,
+"The spirit of the Lord is upon me (Yes), because He hath anointed me
+(Yes), and He's anointed me to deal with the problems of the poor."
+(Go ahead)
+</p>
+<p>
+And I want to commend the preachers, under the leadership of these
+noble men: James Lawson, one who has been in this struggle for many
+years. He's been to jail for struggling; he's been kicked out of
+Vanderbilt University for this struggling; but he's still going on,
+fighting for the rights of his people. [Applause] Reverend Ralph
+Jackson, Billy Kyles; I could just go right on down the list, but
+time will not permit. But I want to thank all of them, and I want you
+to thank them because so often preachers aren't concerned about
+anything but themselves. [Applause] And I'm always happy to see a
+relevant ministry. It's all right to talk about long white robes over
+yonder, in all of its symbolism, but ultimately people want some
+suits and dresses and shoes to wear down here. [Applause] It's all
+right to talk about streets flowing with milk and honey, but God has
+commanded us to be concerned about the slums down here and His
+children who can't eat three square meals a day. [Applause] It's all
+right to talk about the new Jerusalem, but one day God's preacher must
+talk about the new New York, the new Atlanta, the new Philadelphia,
+the new Los Angeles, the new Memphis, Tennessee. [Applause] This is
+what we have to do.
+</p>
+<p>
+Now the other thing we'll have to do is this: always anchor our
+external direct action with the power of economic withdrawal. Now we
+are poor people, individually we are poor when you compare us with
+white society in America. We are poor. Never stop and forget that
+collectively, that means all of us together, collectively we are
+richer than all the nations in the world, with the exception of nine.
+Did you ever think about that? After you leave the United States,
+Soviet Russia, Great Britain, West Germany, France, and I could name
+the others, the American Negro collectively is richer than most
+nations of the world. We have an annual income of more than thirty
+billion dollars a year, which is more than all of the exports of the
+United States and more than the national budget of Canada. Did you
+know that? That's power right there, if we know how to pool it.
+(Yeah) [Applause]
+</p>
+<p>
+We don't have to argue with anybody. We don't have to curse and go
+around acting bad with our words. We don't need any bricks and
+bottles; we don't need any Molotov cocktails. (Yes) We just need to
+go around to these stores (Yes sir), and to these massive industries
+in our country (Amen), and say, "God sent us by here (All right) to
+say to you that you're not treating His children right. (That's right)
+And we've come by here to ask you to make the first item on your
+agenda fair treatment where God's children are concerned. Now if you
+are not prepared to do that, we do have an agenda that we must follow.
+And our agenda calls for withdrawing economic support from you."
+[Applause]
+</p>
+<p>
+And so, as a result of this, we are asking you tonight (Amen) to go
+out and tell your neighbors not to buy Coca-Cola in Memphis. (Yeah)
+[Applause] Go by and tell them not to buy Sealtest milk. (Yeah)
+[Applause] Tell them not to buy–what is the other bread?–Wonder Bread.
+[Applause] And what is the other bread company, Jesse? Tell them not
+to buy Hart's bread. [Applause] As Jesse Jackson has said, up to now
+only the garbage men have been feeling pain. Now we must kind of
+redistribute that pain. [Applause] We are choosing these companies
+because they haven't been fair in their hiring policies, and we are
+choosing them because they can begin the process of saying they are
+going to support the needs and the rights of these men who are on
+strike. And then they can move on downtown and tell Mayor Loeb to do
+what is right. (That's right, Speak) [Applause]
+</p>
+<p>
+Now not only that, we've got to strengthen black institutions.
+(That's right, Yeah) I call upon you to take your money out of the
+banks downtown and deposit your money in Tri-State Bank. (Yeah)
+[Applause] We want a "bank-in" movement in Memphis. (Yes) Go by the
+savings and loan association. I'm not asking you something that we
+don't do ourselves in SCLC. Judge Hooks and others will tell you that
+we have an account here in the savings and loan association from the
+Southern Christian Leadership Conference. We are telling you to follow
+what we're doing, put your money there. [Applause] You have six or 
+seven black insurance companies here in the city of Memphis. Take out
+your insurance there. We want to have an "insurance-in." [Applause]
+Now these are some practical things that we can do. We begin the
+process of building a greater economic base, and at the same time, we
+are putting pressure where it really hurts. (There you go) And I ask
+you to follow through here. [Applause]
+</p>
+<p>
+Now let me say as I move to my conclusion that we've got to give 
+ourselves to this struggle until the end. (Amen) Nothing would be more
+tragic than to stop at this point in Memphis. We've got to see it
+through. [Applause] And when we have our march, you need to be there.
+If it means leaving work, if it means leaving school, be there.
+[Applause] Be concerned about your brother. You may not be on strike
+(Yeah), but either we go up together or we go down together.
+[Applause] Let us develop a kind of dangerous unselfishness.
+</p>
+<p>
+One day a man came to Jesus and he wanted to raise some questions
+about some vital matters of life. At points he wanted to trick Jesus
+(That's right), and show him that he knew a little more than Jesus
+knew and throw him off base. [Recording interrupted] Now that
+question could have easily ended up in a philosophical and theological
+debate. But Jesus immediately pulled that question from midair and
+placed it on a dangerous curve between Jerusalem and Jericho. (Yeah)
+And he talked about a certain man who fell among thieves. (Sure) You
+remember that a Levite (Sure) and a priest passed by on the other
+side; they didn't stop to help him. Finally, a man of another race
+came by. (Yes sir) He got down from his beast, decided not to be
+compassionate by proxy. But he got down with him, administered first
+aid, and helped the man in need. Jesus ended up saying this was the
+good man, this was the great man because he had the capacity to
+project the "I" into the "thou," and to be concerned about his
+brother.
+</p>
+<p>
+Now, you know, we use our imagination a great deal to try to determine
+why the priest and the Levite didn't stop. At times we say they were
+busy going to a church meeting, an ecclesiastical gathering, and they
+had to get on down to Jerusalem so they wouldn't be late for their
+meeting. (Yeah) At other times we would speculate that there was a
+religious law that one who was engaged in religious ceremonials was
+not to touch a human body twenty-four hours before the ceremony.
+(All right) And every now and then we begin to wonder whether maybe
+they were not going down to Jerusalem, or down to Jericho, rather,
+to organize a Jericho Road Improvement Association. [Laughter]
+That's a possibility. Maybe they felt it was better to deal with the
+problem from the causal root, rather than to get bogged down with an
+individual effect. [Laughter]
+</p>
+<p>
+But I'm going to tell you what my imagination tells me. It's possible
+that those men were afraid. You see, the Jericho Road is a dangerous
+road. (That's right) I remember when Mrs. King and I were first in
+Jerusalem. We rented a car and drove from Jerusalem down to Jericho.
+(Yeah) And as soon as we got on that road I said to my wife,
+"I can see why Jesus used this as the setting for his parable." It's a
+winding, meandering road. (Yes) It's really conducive for ambushing.
+You start out in Jerusalem, which is about twelve hundred miles,
+or rather, twelve hundred feet above sea level. And by the time you
+get down to Jericho fifteen or twenty minutes later, you're about
+twenty-two feet below sea level. That's a dangerous road. (Yes) In
+the days of Jesus it came to be known as the "Bloody Pass."
+And you know, it's possible that the priest and the Levite looked
+over that man on the ground and wondered if the robbers were still
+around. (Go ahead) Or it's possible that they felt that the man on the
+ground was merely faking (Yeah), and he was acting like he had been
+robbed and hurt in order to seize them over there, lure them there for
+quick and easy seizure. (Oh yeah) And so the first question that the
+priest asked, the first question that the Levite asked was,
+"If I stop to help this man, what will happen to me?" (All right)
+</p>
+<p>
+But then the Good Samaritan came by, and he reversed the question:
+"If I do not stop to help this man, what will happen to him?" That's
+the question before you tonight. (Yes) Not, "If I stop to help the
+sanitation workers, what will happen to my job?" Not, "If I stop to
+help the sanitation workers, what will happen to all of the hours
+that I usually spend in my office every day and every week as a
+pastor?" (Yes) The question is not, "If I stop to help this man in
+need, what will happen to me?" The question is, "If I do not stop to
+help the sanitation workers, what will happen to them?"
+That's the question. [Applause]
+</p>
+<p>
+Let us rise up tonight with a greater readiness. Let us stand with a
+greater determination. And let us move on in these powerful days,
+these days of challenge, to make America what it ought to be. We have
+an opportunity to make America a better nation. (Amen)
+</p>
+<p>
+And I want to thank God, once more, for allowing me to be here with
+you. (Yes sir) You know, several years ago I was in New York City
+autographing the first book that I had written. And while sitting
+there autographing books, a demented black woman came up. The only
+question I heard from her was, "Are you Martin Luther King?" And I
+was looking down writing and I said, "Yes."
+</p>
+<p>
+The next minute I felt something beating on my chest. Before I knew it
+I had been stabbed by this demented woman. I was rushed to Harlem
+Hospital. It was a dark Saturday afternoon. And that blade had gone
+through, and the X rays revealed that the tip of the blade was on the
+edge of my aorta, the main artery. And once that's punctured you're
+drowned in your own blood, that's the end of you. (Yes sir) It came
+out in the New York Times the next morning that if I had merely
+sneezed, I would have died.
+</p>
+<p>
+Well, about four days later, they allowed me, after the operation,
+after my chest had been opened and the blade had been taken out, to
+move around in the wheelchair of the hospital. They allowed me to read
+some of the mail that came in, and from all over the states and the
+world kind letters came in. I read a few, but one of them I will never
+forget. I had received one from the president and the vice president;
+I've forgotten what those telegrams said. I'd received a visit and a
+letter from the governor of New York, but I've forgotten what that
+letter said. (Yes)
+</p>
+<p>
+But there was another letter (All right) that came from a little girl,
+a young girl who was a student at the White Plains High School. And I
+looked at that letter and I'll never forget it. It said simply,
+"Dear Dr. King: I am a ninth-grade student at the White Plains High
+School." She said, "While it should not matter, I would like to
+mention that I'm a white girl. I read in the paper of your misfortune
+and of your suffering. And I read that if you had sneezed, you would
+have died. And I'm simply writing you to say that I'm so happy that
+you didn't sneeze." (Yes) [Applause]
+</p>
+<p>
+And I want to say tonight [Applause], I want to say tonight that I,
+too, am happy that I didn't sneeze. Because if I had sneezed
+(All right), I wouldn't have been around here in 1960 (Well), when
+students all over the South started sitting-in at lunch counters. And
+I knew that as they were sitting in, they were really standing up
+(Yes sir) for the best in the American dream and taking the whole
+nation back to those great wells of democracy, which were dug deep by
+the founding fathers in the Declaration of Independence and the
+Constitution.
+</p>
+<p>
+If I had sneezed (Yes), I wouldn't have been around here in 1961, when
+we decided to take a ride for freedom and ended segregation in
+interstate travel. (All right)
+</p>
+<p>
+If I had sneezed (Yes), I wouldn't have been around here in 1962, when
+Negroes in Albany, Georgia, decided to straighten their backs up. And
+whenever men and women straighten their backs up, they are going
+somewhere, because a man can't ride your back unless it is bent.
+</p>
+<p>
+If I had sneezed [Applause], if I had sneezed, I wouldn't have been
+here in 1963 (All right), when the black people of Birmingham,
+Alabama, aroused the conscience of this nation and brought into being
+the Civil Rights Bill.
+</p>
+<p>
+If I had sneezed, I wouldn't have had a chance later that year, in
+August, to try to tell America about a dream that I had had. (Yes)
+</p>
+<p>
+If I had sneezed [Applause], I wouldn't have been down in
+Selma, Alabama, to see the great movement there.
+</p>
+<p>
+If I had sneezed, I wouldn't have been in Memphis to see a community
+rally around those brothers and sisters who are suffering. (Yes) I'm
+so happy that I didn't sneeze.
+</p>
+<p>
+And they were telling me. [Applause] Now it doesn't matter now.
+(Go ahead) It really doesn't matter what happens now. I left Atlanta
+this morning, and as we got started on the plane–there were six of
+us–the pilot said over the public address system: "We are sorry for
+the delay, but we have Dr. Martin Luther King on the plane. And to be
+sure that all of the bags were checked, and to be sure that nothing
+would be wrong on the plane, we had to check out everything carefully.
+And we've had the plane protected and guarded all night."
+</p>
+<p>
+And then I got into Memphis. And some began to say the threats, or
+talk about the threats that were out (Yeah), or what would happen to
+me from some of our sick white brothers.
+</p>
+Well, I don't know what will happen now; we've got some difficult days
+ahead. (Amen) But it really doesn't matter to with me now, because
+I've been to the mountaintop. (Yeah) [Applause] And I don't mind.
+[Applause continues] Like anybody, I would like to live a long 
+life–longevity has its place. But I'm not concerned about that now.
+I just want to do God's will. (Yeah) And He's allowed me to go up to
+the mountain. (Go ahead) And I've looked over (Yes sir), and I've seen
+the Promised Land. (Go ahead) I may not get there with you. (Go ahead)
+But I want you to know tonight (Yes), that we, as a people, will get
+to the Promised Land. [Applause] (Go ahead, Go ahead) And so I'm happy
+tonight; I'm not worried about anything; I'm not fearing any man. Mine
+eyes have seen the glory of the coming of the Lord. [Applause]
+</p>
+</section>
+</body>
+</html>
+
+

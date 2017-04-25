@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ad1.Grammar</title>
+</head>
+
+<body>
+<pre>
+The Syntax and Grammar of Ad1
+*****************************
+      
+        Denial ain't just a river in Egypt.
+                                         -- Mark Twain
+
+        Ending a sentence with a preposition is something up with which
+        I will not put.
+                                         -- Winston Churchill
+
+<img src="input-stream-parser.png">
+
+Parsing text is always a very stateful activity and often complex to implement.
+Yet the power of Ad1 is in the ability to extend the language, both syntactically
+and semantically. Here we attempt to depict the language's global and local
+state, and describe its evolution as simply as possible.
+
+Motivation: you can write expressions which add new symbols to the language; for
+example, in the code snippet below we use the ':' operator to *declare* two new
+integer variables 'x' and 'y'. Later you can *define* or conditionally define how
+symbols are parsed and, semantically, what procedures they effect.
+
+. line comments 1        *Code* comes into the compiler** as a named input stream
+x, y: Z;      . 2        of UTF-8 characters, it is parsed just-in-time,
+x = 7;        . 3        character-by-character to remove comments + whitespace,
+y &lt;- 8;       . 4        and the resulting *script* is stored as a "string"
+y &lt;- x + y;   . 5        object in the object-key script stack.
+
+                                            Script Stlack
+                                           ............... 0xFF
+                                           | previously  |
+                                           | loaded      |
+                                           | scripts     |
+      "x,y:Z;x=7;y&lt;-8;y&lt;-x+y;" &lt;---------- | obj, key ---|----&gt; "stream name"
+      A                                    ***************                      *
+      |                                           |
+      |                                    ****** V ****** 0
+      |
+At this point the script is*** partitioned into lexemes, although we haven't yet
+done anything to locate them. A *lexeme* is a sequence of characters that matches
+a string stored in compiler's symbol table, at least within the context of the
+current lexical scope. *Symbols* are strings that can be recognized as part of
+the language by the compiler, ie the symbol table is like the Oxford Dictionary
+(plus Urban Dictionary!).
+      |
+In the base case, the compiler has (1) loaded and stripped a source code file
+specified in the command line, it has (2) initialized two symbol tables and other
+related structures with the core language, it has (3) set the lexical scope to
+the source file name, and finally it has (4) moved the cursor to the stripped
+script and placed a text end sentinel.
+      |
+      |                             Operator Symbol Table
+      |     Global Cursor         ...............................................
+      *---[ xxxxxxxxxxxxx ]       | etc.  &lt;attributes, parse_procedures, etc.&gt;  |
+                                  | "="  "const_define_func"  "predicate_f" ... |
+                                  | "+"  "additive_semigroup" "commutative" ... |
+                                  | etc.                                        |
+            Lexical Scope         **********************************************
+          .................
+          | "stream name" |       Identifier Symbol Table
+          *****************       ...............................................
+                  |               | "x"  "stream name"  "Z"  "7"  ...           |
+          ******* V *******       | "y"  "stream name"  "Z"   -   ...           |
+                                  ***********************************************
+
+Again, at this point in time, the goal is to parse the lexemes in front of us and
+build a token tree.
+
+</pre>
+</body>
+</html>
