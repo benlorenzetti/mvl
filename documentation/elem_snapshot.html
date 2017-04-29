@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+<head>
+<title>Pi V Insertion Sort</title>
+<link rel="stylesheet" type="text/css" href="default.css" />
+<link rel="stylesheet" type="text/css" href="manpage.css" />
+</head>
+
+<body>
+
+<nav>
+<a href="piv.html"><img alt="Pi V Logo" src="piv_resources/logo.png" /></a>
+
+<h3 class="nav-heading">
+  <a href="containers.html">+ Containers</a>
+</h3>
+
+<h3 class="nav-heading">
+  <a href="piv.html">- Algorithms</a>
+</h3>
+<hr class="nav-hr"/>
+<ul class="top-level-nav-ul">
+  <li><a href="algorithms.html">M &#x2a2f; N function framework</a></li>
+  <li><a href="macros.html">M &#x2a2f; N macro library</a></li>
+  <li><a href="mx_functions.html">
+      <span class="nav-span">(m, x)</span> struct. specific f()'s</a></li>
+  <li><a href="xn_functions.html">
+      <span class="nav-span">(x, n)</span> type specific f()'s</a></li>
+  <li><a href="mn_functions.html">
+      <span class="nav-span">(m, n)</span> specific interfaces</a></li>
+  <li>
+    <h4 class="nav-sub-heading">
+      <a href="xx_functions.html"><span class="nav-span">(x, x)</span> generic algorithms</a>
+    </h4>
+    <ul class="nested-nav-ul">
+      <li><a id="current-page" href="insort.html">
+          <span class="nav-span">piv_insort()</span></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="nav-heading">
+  <a href="piv.html">+ About</a>
+</h3>
+
+<h3 class="nav-heading">
+  <a href="baselibrary.html">+ Vectors &amp; Slices</a>
+</h3>
+
+</nav>
+
+<div id="main-content-width-div">
+
+<div id="leaderboard">
+<!--<img src="https://lh5.ggpht.com/NFYFP2H9CCP50vAQNLa7AtCj_mbbYmOzY978fZqd31oL5qOdvXgxU3KW8ek2VgvIOvTqWY0=w728" />
+-->
+</div>
+
+<section id="name">
+<h1><span>elem_snapshot()</span> - Element Snapshots</h1>
+</section>
+
+<section class="synopsis">
+<h2>SYNOPSIS</h2>
+<pre class="synopsis">
+elem_snapshot_t: C -&gt; *Type;
+
+elem_snapshot: C &times; &#8469;*E -&gt; S;
+elem_snapshot( container, elem_ref);
+</pre>
+</section>
+
+<section id="description">
+<h2>DESCRIPTION</h2>
+<p>If, for a portion of code, a data structure <span>C</span> behaves
+like a fixed set&mdash;that is the ordering of elements may change
+but none are added or removed, then elem_snapshot() can be used to
+temporarily save a specific node in a location independent way.
+</p>
+<section id="return-value">
+<h2>RETURN VALUE</h2>
+<p>For arrays, elem_snapshot() will return the object of type
+<span>S = E</span> indicated by <span>elem_ref</span> via
+copying. For one-elment-node based structures, <span>elem_ref</span>
+is trivially returned.
+</p>
+<p>The type function elem_snapshot_t() is a compile-time concept
+that returns a type-pointer pointing for identifying type S.
+</section>
+
+<section id="algorithm">
+<h2>ALGORITHM</h2>
+<pre>
+For C &epsilon; Containers &and;
+    T = element_t(C) &and;
+    S = elem_snapshot_t(C), let
+elem_snapshot: C &times; &#8469;*T -&gt; S;
+
+For c::C, r:= &#8469;*T, and return: S, if
+(T = S) -&gt; elem_snapshot(c, r) = { return &lt;- [r]; } &and;
+(T != S) -&gt; elem_snapshot(c, r) = { return &lt;- r; };
+</pre>
+</section>
+
+<footer>
+<hr />
+Copyright (c) Ben Lorenzetti 2017<br />
+Redistribution and use is permitted under the terms of the 3-clause
+<a href="./FreeBSD_Documentation_License.txt">FreeBSD Documentation License</a>.
+</footer>
+
+</body>
+</html>
