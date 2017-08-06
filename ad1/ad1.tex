@@ -1,20 +1,70 @@
 \documentclass[11pt]{book}
+\usepackage{listings}
+
 
 \begin{document}
 \title{The Ad1 Programming Language}
 \author{Ben Lorenzetti}
 \maketitle
+\tableofcontents
 
 \chapter[Preface]{Language and Civilization}
 
-\chapter{Introduction}
-\section{Infix Expressions}
-\section{Values and Primitive Data Types}
-\section{Operators and Expressions}
-\section{Memory, 
-\section{Algebraic Data Types}
 
-\section{The Concrete Machine}
+\chapter{Introduction}
+
+\chapter{On the Use of Symbols in Ad1}
+\section{Sets and Sequences}
+\section{Value Types}
+\section{Symbolic Language}
+\section{Entities, Identities, and the ``Adstract Machine''}
+\section{Classifications of Symbols in Ad1}
+
+\chapter{On the Grammar of the ``Adstract Machine''}
+\section{Token Trees}
+\section{Expression Lists}
+\section{Expression Trees}
+
+\chapter{Primitive Operations of the Concrete Machine}
+
+now move to semantics. Data movement, data transformation, and control flow.
+
+\section{Operator Precedence}
+\section{Logic Systems}
+\section{Logical Consequence}
+\section{Logical Conditional}
+\section{Nested Expression Lists and Lexical Scope}
+\section{Goto Loops}
+\section{Flat Procedures}
+
+
+\chapter{Memory Layout Semantics of the Concrete Machine} 
+\section{Primitive Data Types}
+\section{Object Types}
+\section{Algebraic Types}
+
+Packed by default.
+
+\section{Pointer Types}
+\section{Array Types}
+
+Always packed.
+
+Can be exponentiated to integers (Z). Zero is exactly same as pointer.
+Indexing is done in N-1 (which is basically Z of smaller size).
+
+\section{Character Strings}
+
+\chapter{}
+\section{RAM Model}
+\section{Procedure Types}
+\section{Procedure Call ABI}
+\section{Global State Objects}
+\section{Stack Allocated Objects}
+\section{Heap Allocated Objects}
+\section{Linear Types}
+
+
 
 \chapter{Ipsum Strings}
 
@@ -42,5 +92,39 @@ Civil Government, so far as it is instituted for the security of property,
 is in reality instituted for the defense of the rich against the poor, or
 of those have some property against those who have none at all.
 Again adam smith wealth of nations
+
+\begin{lstlisting}
+For A: Address\_Type,
+    m:= sizeof(A),
+    w:= sizeof(W), 
+    B:= SYSTEM\_RADIX, and
+    heap\_height := m - log(B, m), and
+    if (w >= m) and (heap\_height >= 0) -->
+geomalloc: A --> Z = {    
+	If (MACHINE\_CONSENSUS\_NUMBER = INFINITY) -->
+	For n: Z,
+	geomalloc(n) = {
+		assert(n >= ceiling(log(B, m)) and n <= m);
+		mem\_end, heap\_end: W;
+		geomalloc.heap: A\^(heap\_height + 1);
+		i: Z <- n - log(B, m);
+		first: lvec(A);
+		Try\_from\_Bucket\_i:
+		first <- (heap[i], heap + i);
+		(first != A(1)) --> {
+			first <- atomic\_remove(first);	
+			(first != first.prev) -->
+				goto Try\_from\_Bucket\_i;
+			(i > n - log(B, m))
+				
+		}
+		(i != heap\_height) -->
+			i+=1, goto Try\_from\_Bucket\_i;
+		(0) -->
+			
+	}	
+}
+
+\end{lstlisting}
 
 \end{document}

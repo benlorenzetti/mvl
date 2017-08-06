@@ -14,6 +14,8 @@ static struct piv_geometric_alloc_obj galloc_obj;
 
 #include <stdio.h>
 int main() {
+	printf("uchar* size = %u\n", sizeof(unsigned char*));
+	printf("uintptr_t size = %u\n", sizeof(uintptr_t));
 	printf("Heap break point at t=1: %lu\n", noarch_sbrk(0));
 	printf("Heap break point at t=2: %lu\n", noarch_sbrk(1000));
 	printf("page size = %d\n", PIV_PAGE_SIZE);

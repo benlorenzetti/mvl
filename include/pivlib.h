@@ -31,49 +31,72 @@
  */
 
 
-#include "pivlib_arch.h"
+#include "piv_arch.h"
+#include <stdint.h>
 
-typedef uintptr_t piW;
-typedef struct {uintptr_t N;} piN;
+typedef uintptr_t Wint;
+typedef intptr_t Zint;
+typedef uintptr_t Nint;
+typedef unsigned char Wchar;
 
-piW pi_power2(char);
-char pi_log2floor(piW x);
-char pi_log2ceil(piW x);
+Wchar log2floor(Nint);
+Wchar log2ceil(Nint);
+Nint power2N(Wchar);
+Wint power2W(Wchar);
+Nint geomalloc(Wchar);
+Nint left_geomalloc(Wchar);
+void geofree(Nint, Wchar);
+void left_geofree(Nint, Wchar);
+Nint NfromW(Wint);
+Nint memcpy(Nint, Nint, Nint);
+Nint r2l_memcpy(Nint, Wint, Wint, Wint);
+//   r2l_memcpy(dest, src, obj_count, obj_size) = rend of dest
+Wint r2r_memcpy(Wint, Wint, Wint, Wint);
 
-typedef struct {
-	piN nth;
-	piN zero;
-} pirvec;
+struct rvec {
+    Nint nth;
+    Nint zero;
+};
 
-typedef struct {
-	piN zero;
-	piW memory; // alloc_size, prev_node, 1st_tree_node, etc.
-} pilvec;
+typedef union {
+    struct rvec rvec;
+    Nint rref;
+} rvec;
 
+struct lvec {
+    Nint zero;
+    Nint size;
+};
 
-typedef struct {
-	piN rref;
-	pilvec lvec;
-} pi_slice;
+typedef union {
+    struct lvec lvec;
+    Nint zero;
+} lvec;
+
+struct slice {
+    struct lvec lvec;
+    Nint rref;
+};
+
+typedef union {
+    struct slice slice;
+    struct rvec rvec;
+    Nint rref;
+} slice;
 
 struct pi_vtable;
-struct pie_object {
-	piN rref;
-	pilvec lvec;
+struct pie {
+	Nint rref;
+	lvec lvec;
 	struct pi_vtable* vtable;
 };
 
-union pie {
-	piN rref;
-	pirvec rvec;
-	pi_slice state;
-	struct pie_object obj;
-};
-
-struct piterator {
-	pilvec lvec;
-	struct pi_vtable* vtable;
-};
+typedef union {
+	Nint rref;
+	rvec rvec;
+	struct slice slice;
+	struct pie pie;
+} pie;
 
 /*
 struct pi_vtable {
